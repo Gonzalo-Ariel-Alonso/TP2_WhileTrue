@@ -1,46 +1,37 @@
 #include <iostream>
-#include <fstream>
 #include "Nodo.h"
 #include "Lista.h"
 #include "Escritor.h"
-
+#include "funciones.h"
 
 using namespace std;
 
+
+
 int main(){
-    ifstream escritores;
-    escritores.open("escritores.txt");
-    Lista lista_escritores;
-    string _referencia;
-    string nombre;
-    string nacionalidad;
-    string anio_nacimiento;
-    string anio_fallecimiento = "/n";
-    string nombre_clase_escritor;   
-    string vacio;
-    while (!escritores.eof()){
-        getline(escritores,_referencia);
-        getline(escritores,nombre);
-        getline(escritores,nacionalidad);
-        getline(escritores,anio_nacimiento);
-        if (anio_nacimiento != ""){
-            getline(escritores,anio_fallecimiento);
+    int selector = 0;
+    while (selector != 12){
+        mostrar_menu();
+        cin >> selector;
+        switch (selector){
+
+        case 3:
+            cout << "opcion en desarollo" << endl;
+            break;
+        case 5:
+            listar_escritores(crear_lista_escritores());
+            system("pause");
+            cout << endl;
+            break;
+        case 12:
+            cout << "Adios!" << endl << endl;
+            break;
+        default:
+            cout << "Opcion en invalida. Intentelo de nuevo" << endl << endl;
+            break;
         }
-        if (anio_fallecimiento != ""){
-            getline(escritores,vacio);
-        }
-        //crear objeto escritor
-        nombre_clase_escritor = nombre;
-        Escritor nombre_clase_escritor(nombre,nacionalidad,anio_nacimiento,anio_fallecimiento);
-        //resetear posibles valor que esten vacios
-        anio_fallecimiento = "";
-        anio_nacimiento = "";
-        int pos = 1;
-        lista_escritores.alta(&nombre_clase_escritor,pos);
-        cout << lista_escritores.consulta(pos) << endl;;
-        pos++;
     }
-//    system("pause");
+
     return 0;
 }
 

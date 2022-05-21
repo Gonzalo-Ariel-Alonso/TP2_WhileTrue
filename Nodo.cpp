@@ -2,8 +2,8 @@
 
 
 // Constructor
-Nodo::Nodo(Dato objeto) {
-    objeto = objeto;
+Nodo::Nodo(Dato _objeto) {
+    objeto = _objeto;
     siguiente = 0;
 }
 

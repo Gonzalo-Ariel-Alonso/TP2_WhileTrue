@@ -19,7 +19,7 @@ public:
     PRE: -
     POS: construye un Nodo con d como dato anterior en nullptr
     */
-    Nodo(Dato objeto);
+    Nodo(Dato _objeto);
 
     void cambiar_siguiente(Nodo* n);
 
