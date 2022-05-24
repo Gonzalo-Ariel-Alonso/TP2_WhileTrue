@@ -10,16 +10,20 @@ using namespace std;
 
 int main(){
     int selector = 0;
+    Lista lista_de_escritores;
+    crear_lista_escritores(&lista_de_escritores);
+
     while (selector != 12){
         mostrar_menu();
         cin >> selector;
         switch (selector){
 
         case 3:
-            cout << "opcion en desarollo" << endl;
+            agregar_escritor(&lista_de_escritores);
+            cout << "Escritor agregardo papa" << endl;
             break;
         case 5:
-            listar_escritores(crear_lista_escritores());
+            listar_escritores(&lista_de_escritores);
             system("pause");
             cout << endl;
             break;

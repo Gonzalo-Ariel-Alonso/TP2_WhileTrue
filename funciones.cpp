@@ -20,10 +20,9 @@ void mostrar_menu(){
     cout << "12 - Salir" << endl;
 }   
 
-Lista crear_lista_escritores(){
+void crear_lista_escritores(Lista * lista_de_escritores){
     ifstream escritores;
     escritores.open("escritores.txt");
-    Lista lista_escritores;
     string _referencia;
     string nombre;
     string nacionalidad;
@@ -44,7 +43,7 @@ Lista crear_lista_escritores(){
         }
         //crear objeto escritor
         Escritor *ref = new Escritor(nombre,nacionalidad,anio_nacimiento,anio_fallecimiento);
-        lista_escritores.alta(ref,pos);
+        lista_de_escritores->alta(ref,pos);
         pos++;
 
         anio_fallecimiento = "";
@@ -53,14 +52,37 @@ Lista crear_lista_escritores(){
     }
 
     escritores.close();
-    return lista_escritores;
 }
 
-void listar_escritores(Lista lista_escritores){
-    int cantidad_escritores = lista_escritores.obtener_cantidad();
+void listar_escritores(Lista * lista_escritores){
+    int cantidad_escritores = lista_escritores->obtener_cantidad();
     int pos = 1;
     for ( pos; pos <= cantidad_escritores; pos++){
-            Escritor* aux = lista_escritores.consulta(pos);
+            Escritor* aux = lista_escritores->consulta(pos);
             aux->mostrar_datos();
     }
+}
+
+void agregar_escritor(Lista * Lista_de_escritores){
+    int ultima_posicion = Lista_de_escritores->obtener_cantidad() + 1;
+    string nombre;
+    string nacionalidad;
+    string anio_nacimiento;
+    string anio_fallecimiento;
+    cout << "Ingrese el nombre y apellido del escritor que quiere agregar" << endl;
+    cin >> nombre;
+    cout << "Nacionalidad" << endl;
+    cin >> nacionalidad;
+    cout << "Anio de nacimiento, escriba 0 si es desconocido" << endl;
+    cin >> anio_nacimiento;
+    cout << "Anio de fallecimiento, escriba 0 si es desconocido" << endl;
+    cin >> anio_fallecimiento;
+
+    Escritor *ref = new Escritor(nombre,nacionalidad,anio_nacimiento,anio_fallecimiento);
+    Lista_de_escritores->alta(ref,ultima_posicion);
+
+    cout << "Usted agrego el escritor: " << endl;
+    Escritor* aux = Lista_de_escritores->consulta(ultima_posicion);
+    aux->mostrar_datos();
+    system("pause");
 }

@@ -5,6 +5,8 @@
 
 void mostrar_menu();
 
-Lista crear_lista_escritores();
+void crear_lista_escritores(Lista * lista_de_escritores);
 
-void listar_escritores(Lista lista_escritores);
+void listar_escritores(Lista * lista_escritores);
+
+void agregar_escritor(Lista *Lista_de_escritores);
