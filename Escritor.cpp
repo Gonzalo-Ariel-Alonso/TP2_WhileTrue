@@ -17,8 +17,8 @@ Escritor::Escritor(string _nombre_y_apellido,string _nacionalidad,string _anio_n
 Escritor::~Escritor(){
 }
 
-void Escritor::modificar_anio_nacimiento(int anio_na){
-    anio_nacimiento = anio_na;
+void Escritor::modificar_anio_fallecimiento(string anio_fallecimiento_nuevo){
+    anio_fallecimiento = anio_fallecimiento_nuevo;
 }
 
 void Escritor::mostrar_datos(){
@@ -26,4 +26,8 @@ void Escritor::mostrar_datos(){
     cout << "Nacionalidad: " << nacionalidad << endl;
     cout << "Ano de nacimiento: " << anio_nacimiento << endl;
     cout << "Ano de fallecimiento: " << anio_fallecimiento << endl << endl;
+}
+
+void Escritor::mostrar_nombre_y_fallecimiento(){
+    cout << "Nombre: " << nombre_y_apellido << " - Ano de fallecimiento: " << anio_fallecimiento << endl;
 }

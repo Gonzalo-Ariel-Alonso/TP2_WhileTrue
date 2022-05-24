@@ -7,7 +7,6 @@
 using namespace std;
 
 
-
 int main(){
     int selector = 0;
     Lista lista_de_escritores;
@@ -20,7 +19,12 @@ int main(){
 
         case 3:
             agregar_escritor(&lista_de_escritores);
-            cout << "Escritor agregardo papa" << endl;
+            system("cls");
+            cout << "Escritor agregado!" << endl;
+            break;
+        case 4:
+            mostrar_nombre_y_fallecimiento_escritor(&lista_de_escritores);
+            modificar_ano_fallecimiento_escritor(&lista_de_escritores);
             break;
         case 5:
             listar_escritores(&lista_de_escritores);
@@ -38,4 +42,3 @@ int main(){
 
     return 0;
 }
-

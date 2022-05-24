@@ -16,8 +16,9 @@ private:
 public:
     Escritor(string _nombre_y_apellido,string _nacionalidad,string _anio_nacimiento,string _anio_fallecimiento);
     ~Escritor();
-    void modificar_anio_nacimiento(int anio_na);
+    void modificar_anio_fallecimiento(string anio_fa);
     void mostrar_datos();
+    void mostrar_nombre_y_fallecimiento();
 };
 
 

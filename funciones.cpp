@@ -86,3 +86,32 @@ void agregar_escritor(Lista * Lista_de_escritores){
     aux->mostrar_datos();
     system("pause");
 }
+
+void mostrar_nombre_y_fallecimiento_escritor(Lista* lista_de_escritores){
+    int cantidad_escritores = lista_de_escritores->obtener_cantidad();
+    for (int pos = 1 ; pos <= cantidad_escritores; pos++){
+        Escritor *aux = lista_de_escritores->consulta(pos);
+        cout << pos << " - ";
+        aux->mostrar_nombre_y_fallecimiento();
+    }
+}
+
+void modificar_ano_fallecimiento_escritor(Lista* lista_de_escritores){
+    int pos_escritor;
+    string fecha_fallecimiento_nueva;
+    int cantidad_escritores = lista_de_escritores->obtener_cantidad();
+    cout << "Digite el numero del escritor que desea cambiarle la fecha de fallecimiento o precione 0 para volver al menu" << endl;
+    cin >> pos_escritor;
+    if(pos_escritor <= cantidad_escritores && pos_escritor != 0){
+        cout << "Digite fecha de fallecimiento del escritor" << endl;
+        cin >> fecha_fallecimiento_nueva;
+        Escritor *aux = lista_de_escritores->consulta(pos_escritor);
+        aux->modificar_anio_fallecimiento(fecha_fallecimiento_nueva);
+        system("cls");
+        cout << "Fecha de fallecimiento modificada con exito"<< endl;
+    }
+    else if (pos_escritor > cantidad_escritores && pos_escritor != 0 ){
+        system("cls");
+        cout << "Escritor inexistente" << endl;
+    }
+}
