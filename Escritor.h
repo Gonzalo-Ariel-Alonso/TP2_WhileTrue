@@ -19,6 +19,7 @@ public:
     void modificar_anio_fallecimiento(string anio_fa);
     void mostrar_datos();
     void mostrar_nombre_y_fallecimiento();
+    string devolver_nombre();
 };
 
 

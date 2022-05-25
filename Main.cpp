@@ -3,7 +3,7 @@
 #include "Lista.h"
 #include "Escritor.h"
 #include "funciones.h"
-
+#include "Lecturas_y_subtipos.h"
 using namespace std;
 
 

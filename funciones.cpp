@@ -70,9 +70,9 @@ void agregar_escritor(Lista * Lista_de_escritores){
     string anio_nacimiento;
     string anio_fallecimiento;
     cout << "Ingrese el nombre y apellido del escritor que quiere agregar" << endl;
-    cin >> nombre;
+    getline(cin>>ws,nombre);
     cout << "Nacionalidad" << endl;
-    cin >> nacionalidad;
+    getline(cin,nacionalidad);
     cout << "Anio de nacimiento, escriba 0 si es desconocido" << endl;
     cin >> anio_nacimiento;
     cout << "Anio de fallecimiento, escriba 0 si es desconocido" << endl;

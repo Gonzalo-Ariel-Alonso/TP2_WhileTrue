@@ -31,3 +31,7 @@ void Escritor::mostrar_datos(){
 void Escritor::mostrar_nombre_y_fallecimiento(){
     cout << "Nombre: " << nombre_y_apellido << " - Ano de fallecimiento: " << anio_fallecimiento << endl;
 }
+
+string Escritor::devolver_nombre(){
+    return nombre_y_apellido;
+}
