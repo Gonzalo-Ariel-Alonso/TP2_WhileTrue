@@ -21,7 +21,7 @@ int main(){
 
         case 3:
             agregar_escritor(&lista_de_escritores);
-            system("cls");
+            system("clear");
             cout << "Escritor agregado!" << endl;
             break;
         case 4:
@@ -30,7 +30,7 @@ int main(){
             break;
         case 5:
             listar_escritores(&lista_de_escritores);
-            system("pause");
+            //system("pause");
             cout << endl;
             break;
         case 12:
