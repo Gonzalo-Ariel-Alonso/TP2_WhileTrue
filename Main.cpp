@@ -11,7 +11,7 @@ void crear_lista_lecturas();
 
 int main(){
     int selector = 0;
-    Lista lista_de_escritores;
+    Lista<Escritor> lista_de_escritores;  
     crear_lista_escritores(&lista_de_escritores);
 
     while (selector != 12){
@@ -47,7 +47,7 @@ int main(){
 
 void crear_lista_lecturas(){
     ifstream lecturas;
-    char tipo_lectura;
+    string tipo_lectura;
     string titulo;
     string duracion_lectura;
     string ano_publicacion;
@@ -63,12 +63,11 @@ void crear_lista_lecturas(){
         getline(lecturas,referencia_a_lectura);
         getline(lecturas,referencia_a_autor);
         getline(lecturas,vacio);
-        char asd = (char)tipo_lectura;
     }
-    return stoi(duracion_lectura);
+ //   return stoi(duracion_lectura);
 }
 
-void crear_lista_de_lecutras(char tipo_lectura,string titulo,int duracion_lectura,int ano_publicacion,string referencia_a_lectura,string referencia_a_autor, Lista *lista_de_escritores,Lista * lista_de_lecturas){
+/*void crear_lista_de_lecutras(char tipo_lectura,string titulo,int duracion_lectura,int ano_publicacion,string referencia_a_lectura,string referencia_a_autor, Lista<Escritor> *lista_de_escritores,Lista<Lectura> * lista_de_lecturas){
     Escritor * puntero_escritor;
     int pos = 1;
     lista_de_escritores->obtener_cantidad();
@@ -79,6 +78,6 @@ void crear_lista_de_lecutras(char tipo_lectura,string titulo,int duracion_lectur
     }
     if (tipo_lectura == 'C'){
         Cuento *ref = new Cuento(tipo_lectura,titulo,duracion_lectura,ano_publicacion,puntero_escritor,referencia_a_lectura);
-        lista_de_lecturas->alta(ref,pos)
+        lista_de_escritores->alta(ref,pos);
     }
-}
+}*/

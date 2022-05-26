@@ -15,8 +15,9 @@ Escritor::Escritor(string _referencia,string _nombre_y_apellido,string _nacional
         anio_fallecimiento = _anio_fallecimiento;
 }
 
-Escritor::~Escritor(){
-}
+Escritor::~Escritor(){}
+
+Escritor::Escritor(){}
 
 void Escritor::modificar_anio_fallecimiento(string anio_fallecimiento_nuevo){
     anio_fallecimiento = anio_fallecimiento_nuevo;
