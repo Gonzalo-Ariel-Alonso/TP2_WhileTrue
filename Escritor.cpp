@@ -1,7 +1,8 @@
 #include "Escritor.h"
 #include <fstream>
 
-Escritor::Escritor(string _nombre_y_apellido,string _nacionalidad,string _anio_nacimiento,string _anio_fallecimiento){
+Escritor::Escritor(string _referencia,string _nombre_y_apellido,string _nacionalidad,string _anio_nacimiento,string _anio_fallecimiento){
+    referencia = _referencia;
     nombre_y_apellido = _nombre_y_apellido;
     nacionalidad = _nacionalidad;
     if (_anio_nacimiento == "" || _anio_nacimiento == "0")
@@ -34,4 +35,8 @@ void Escritor::mostrar_nombre_y_fallecimiento(){
 
 string Escritor::devolver_nombre(){
     return nombre_y_apellido;
+}
+
+string Escritor::obtener_referencia(){
+    return referencia;
 }

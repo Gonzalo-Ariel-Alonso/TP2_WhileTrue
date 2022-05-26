@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "Nodo.h"
 #include "Lista.h"
 #include "Escritor.h"
@@ -6,6 +7,7 @@
 #include "Lecturas_y_subtipos.h"
 using namespace std;
 
+void crear_lista_lecturas();
 
 int main(){
     int selector = 0;
@@ -41,4 +43,42 @@ int main(){
     }
 
     return 0;
+}
+
+void crear_lista_lecturas(){
+    ifstream lecturas;
+    char tipo_lectura;
+    string titulo;
+    string duracion_lectura;
+    string ano_publicacion;
+    string referencia_a_lectura; //dependiendo el tipo de lectura reprecentara algo diferente
+    string referencia_a_autor;
+    string vacio;
+    int pos = 1; // posicion*
+    while (!lecturas.eof()){
+        getline(lecturas,tipo_lectura);
+        getline(lecturas,titulo);
+        getline(lecturas,duracion_lectura);
+        getline(lecturas,ano_publicacion);
+        getline(lecturas,referencia_a_lectura);
+        getline(lecturas,referencia_a_autor);
+        getline(lecturas,vacio);
+        char asd = (char)tipo_lectura;
+    }
+    return stoi(duracion_lectura);
+}
+
+void crear_lista_de_lecutras(char tipo_lectura,string titulo,int duracion_lectura,int ano_publicacion,string referencia_a_lectura,string referencia_a_autor, Lista *lista_de_escritores,Lista * lista_de_lecturas){
+    Escritor * puntero_escritor;
+    int pos = 1;
+    lista_de_escritores->obtener_cantidad();
+    for (pos ; pos <= lista_de_escritores->obtener_cantidad() ; pos++){
+        Escritor * aux = lista_de_escritores->consulta(pos);
+        if (referencia_a_lectura == aux->obtener_referencia())
+            puntero_escritor = aux;
+    }
+    if (tipo_lectura == 'C'){
+        Cuento *ref = new Cuento(tipo_lectura,titulo,duracion_lectura,ano_publicacion,puntero_escritor,referencia_a_lectura);
+        lista_de_lecturas->alta(ref,pos)
+    }
 }

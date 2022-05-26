@@ -23,7 +23,7 @@ void mostrar_menu(){
 void crear_lista_escritores(Lista * lista_de_escritores){
     ifstream escritores;
     escritores.open("escritores.txt");
-    string _referencia;
+    string referencia_escritor;
     string nombre;
     string nacionalidad;
     string anio_nacimiento;
@@ -31,7 +31,7 @@ void crear_lista_escritores(Lista * lista_de_escritores){
     int pos = 1;
     string vacio;
     while (!escritores.eof()){
-        getline(escritores,_referencia);
+        getline(escritores,referencia_escritor);
         getline(escritores,nombre);
         getline(escritores,nacionalidad);
         getline(escritores,anio_nacimiento);
@@ -42,7 +42,7 @@ void crear_lista_escritores(Lista * lista_de_escritores){
             getline(escritores,vacio);
         }
         //crear objeto escritor
-        Escritor *ref = new Escritor(nombre,nacionalidad,anio_nacimiento,anio_fallecimiento);
+        Escritor *ref = new Escritor(referencia_escritor,nombre,nacionalidad,anio_nacimiento,anio_fallecimiento);
         lista_de_escritores->alta(ref,pos);
         pos++;
 

@@ -1,7 +1,7 @@
 #include "Lecturas_y_subtipos.h"
 
 // Implementacion Lectura (clase abstracta)
-Lectura::Lectura(char _tipo_de_lectura,int _duracion_lectura,int _anio_publicacion,Escritor * _autor){
+Lectura::Lectura(char _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor){
     tipo_de_lectura = _tipo_de_lectura;
     duracion_lectura = _duracion_lectura;
     anio_publicacion = _anio_publicacion;
@@ -24,7 +24,7 @@ void Lectura::mostar_filtrado_por_escritor(string esritor_a_filtrar){
 }
 
 //Implementacion poema
-Poema::Poema(char _tipo_de_lectura,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, int _cantidad_versos): Lectura(_tipo_de_lectura,_duracion_lectura,_anio_publicacion,_autor){
+Poema::Poema(char _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, int _cantidad_versos): Lectura(_tipo_de_lectura, titulo,_duracion_lectura,_anio_publicacion,_autor){
     cantidad_versos = _cantidad_versos;
 }
 
@@ -41,7 +41,7 @@ void Poema::mostrar_datos(){
 }
 
 // Implementacion cuento
-Cuento::Cuento(char _tipo_de_lectura,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, string _libro_publicado) : Lectura(_tipo_de_lectura,_duracion_lectura,_anio_publicacion,_autor){
+Cuento::Cuento(char _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, string _libro_publicado) : Lectura(_tipo_de_lectura,titulo,_duracion_lectura,_anio_publicacion,_autor){
     libro_publicado = _libro_publicado;
 }
 
@@ -58,7 +58,7 @@ void Cuento::mostrar_datos(){
 }
 
 //Implementacion novela
-Novela::Novela(char _tipo_de_lectura,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, string _genero): Lectura(_tipo_de_lectura,_duracion_lectura,_anio_publicacion,_autor){
+Novela::Novela(char _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, string _genero): Lectura(_tipo_de_lectura,titulo,_duracion_lectura,_anio_publicacion,_autor){
 genero = _genero;
 }
 
@@ -80,7 +80,7 @@ void Novela::mostar_filtrado_por_genero(string genero_a_filtrar){
 }
 
 //Implementacion novela historica
-Novela_historica::Novela_historica(char _tipo_de_lectura,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, string _genero,char * _descripcion) : Novela(_tipo_de_lectura,_duracion_lectura,_anio_publicacion,_autor,_genero){
+Novela_historica::Novela_historica(char _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, string _genero,char * _descripcion) : Novela(_tipo_de_lectura,titulo,_duracion_lectura,_anio_publicacion,_autor,_genero){
     descripcion = _descripcion;
 }
 

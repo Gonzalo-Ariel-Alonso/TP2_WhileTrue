@@ -2,6 +2,7 @@
 #define NODO_H_INCLUDED
 
 #include "Escritor.h"
+#include "Lecturas_y_subtipos.h"
 #include <string>
 
 typedef Escritor* Dato;

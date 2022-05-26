@@ -1,4 +1,4 @@
-#include "nodo.h"
+#include "Nodo.h"
 
 
 // Constructor
