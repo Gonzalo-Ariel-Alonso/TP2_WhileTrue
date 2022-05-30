@@ -12,7 +12,6 @@ Rayuela
 FICCION
 (1)
 
-4
 N
 Misery
 2100
@@ -48,3 +47,10 @@ Una columna de fuego
 HISTORICA
 Guerra de religiones en Europa en la segunda mitad del siglo XVI
 (5)
+
+C
+El elefante y la cadena
+15
+2025
+Liberales
+(1)

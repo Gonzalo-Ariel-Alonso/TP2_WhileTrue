@@ -14,11 +14,13 @@ protected:
     int anio_publicacion;
     Escritor * autor;
 public:
-    Lectura(string _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor);
+    Lectura(string _tipo_de_lectura,string _titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor);
     ~Lectura();
-    void virtual mostrar_datos() = 0;
+    Lectura();//constructoir dcefault
+    virtual void mostrar_datos() = 0;
     void mostar_filtrado_por_anios(int anio_inicial,int anio_final);
     void mostar_filtrado_por_escritor(string esritor_a_filtrar);
+    string obtener_tipo_de_lectura();
 };
 
 
@@ -36,6 +38,7 @@ private:
     string libro_publicado;
 public:
     Cuento(string _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, string _libro_publicado);
+    Cuento();
     ~Cuento();
     void mostrar_datos();
 };
