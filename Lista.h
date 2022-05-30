@@ -2,15 +2,15 @@
 #define LISTA_LISTA_H
 
 
-#include "Nodo.h"
+#include "Nodo.cpp"
 
-template <class Objeto>
+template <typename Dato>
 class Lista {
     // Atributos
 private:
-    Nodo<Objeto> * primero;
+    Nodo<Dato> * primero;
     int cantidad;
-    //Nodo<Escritor> * cursor;
+    //Nodo<Dato> * cursor;
 
     // Metodos
 public:
@@ -21,17 +21,26 @@ public:
     */
     Lista();
 
-    /*Alta al final de la lista
+
+    /*
+    Alta al final de la lista
     PRE: Recibe un dato
-    Post: Agrega el dato al final de la lista*/
-    void alta(Objeto e);
+    Post: Agrega el dato al final de la lista
+    */
+
+    void alta(Dato e);
+
+    void alta(string titulo, float tiempo_lectura, int anio, Escritor * autor, char tipo_de_objeto, string dato_hijo);
+
+    void alta(string titulo, float tiempo_lectura, int anio, Escritor * autor, char tipo_de_objeto, string dato_hijo, char* tema);
+
 
     /*
     Alta
-    PRE: e es un Escritor valido y 1 <= pos <= obtener_cantidad() + 1
+    PRE: e es un Dato valido y 1 <= pos <= obtener_cantidad() + 1
     POS: agrega el elemento en la posicion pos (se empieza por 1)
     */
-    void alta(Objeto e, int pos);
+    void alta(Dato e, int pos);
 
     /*
     Baja
@@ -42,14 +51,20 @@ public:
 
     //Pre: Recibe un dato
     //Post: Modifica el dato actual del nodo por el nuevo
-    void cambiar_dato(Objeto d, int pos);
+    void cambiar_dato(Dato d, int pos);
 
     /*
     Consulta
     PRE: 1 <= pos <= obtener_cantidad()
     POS: devuelve el elemento que esta en pos, se empieza por 1
     */
-    Objeto consulta(int pos);
+    Dato consulta(int pos);
+
+
+    //PRE: Recibe una posicion 1 <= pos <= obtener_cantidad()
+    //POST: Devuelve el caracter que indica el tipo de dato que tienen el nodo en esa posicion.
+    char consulta_tipo_de_dato(int pos);
+
 
     /*
     Vacia
@@ -58,6 +73,7 @@ public:
     */
     bool vacia();
 
+
     int obtener_cantidad();
 
     // Destructor
@@ -65,84 +81,124 @@ public:
 
 private:
 
-    Nodo<Objeto> * obtener_nodo(int pos);
+    Nodo<Dato> * obtener_nodo(int pos);
 };
 
-//DEFINICION DE METODOS
-
 // Constructor
-template <typename Objeto>
-Lista<Objeto>::Lista() {
+template <typename Dato>
+Lista<Dato>::Lista() {
     primero = 0;
     cantidad = 0;
 }
 
 //Pregunta si esta vacia
-template <typename Objeto>
-bool Lista<Objeto>::vacia() {
+template <typename Dato>
+bool Lista<Dato>::vacia() {
     return (cantidad == 0);
 }
 
 //Pregunta la cantidad de nodos(Espacio)
-template <typename Objeto>
-int Lista<Objeto>::obtener_cantidad() {
+template <typename Dato>
+int Lista<Dato>::obtener_cantidad() {
     return cantidad;
 }
 
 //Destructor
-template <typename Objeto>
-Lista<Objeto>::~Lista() {
+template <typename Dato>
+Lista<Dato>::~Lista() {
     while (! vacia()){
         baja(1);
     }
 }
 
 // Consulta
-template <typename Objeto>
-Objeto Lista<Objeto>::consulta(int pos) {
-    Nodo<Objeto>* aux = obtener_nodo(pos);
+template <typename Dato>
+Dato Lista<Dato>::consulta(int pos) {
+    Nodo<Dato>* aux = obtener_nodo(pos);
     return aux->obtener_dato();
 }
 
+// Consulta tipo de dato
+template <typename Dato>
+char Lista<Dato>::consulta_tipo_de_dato(int pos) {
+    Nodo<Dato>* aux = obtener_nodo(pos);
+    return aux->obtener_tipo_de_dato();
+}
+
 //Alta al final
-template <typename Objeto>
-void Lista<Objeto>::alta(Objeto e) {
-    Nodo<Objeto>* nuevo = new Nodo<Objeto>(e);
+template <typename Dato>
+void Lista<Dato>::alta(Dato e) {
+    Nodo<Dato>* nuevo = new Nodo<Dato>(e);
     if (cantidad == 0) {
         primero = nuevo;
     }
     else {
-        Nodo<Objeto>* ultimo = obtener_nodo(cantidad);
+        Nodo<Dato>* ultimo = obtener_nodo(cantidad);
         ultimo->cambiar_siguiente(nuevo);
     }
     cantidad++;
 }
 
+//Alta al final
+template <typename Dato>
+void Lista<Dato>::alta(string titulo, float tiempo_lectura, int anio,Escritor * autor, char tipo_de_objeto, string dato_hijo) {
+    Nodo<Dato>* nuevo = new Nodo<Dato>(titulo, tiempo_lectura, anio, autor, tipo_de_objeto, dato_hijo);
+    if (cantidad == 0) {
+        primero = nuevo;
+    }
+    else {
+        Nodo<Dato>* ultimo = obtener_nodo(cantidad);
+        ultimo->cambiar_siguiente(nuevo);
+    }
+    cantidad++;
+}
+
+template < typename Dato >
+void Lista<Dato>::alta(string titulo, float tiempo_lectura, int anio,Escritor * autor, char tipo_de_objeto, string dato_hijo, char* tema)
+{
+    Nodo<Dato>* nuevo = new Nodo<Dato>(titulo, tiempo_lectura, anio, autor, tipo_de_objeto, dato_hijo, tema);
+    if (cantidad == 0) {
+        primero = nuevo;
+    }
+    else {
+        Nodo<Dato>* ultimo = obtener_nodo(cantidad);
+        ultimo->cambiar_siguiente(nuevo);
+    }
+    cantidad++;
+}
+
+
 // alta
-template <typename Objeto>
-void Lista<Objeto>::alta(Objeto e, int pos) {
-    Nodo<Objeto>* nuevo = new Nodo<Objeto>(e);
+template <typename Dato>
+void Lista<Dato>::alta(Dato e, int pos) {
+    Nodo<Dato>* nuevo = new Nodo<Dato>(e);
     if (pos == 1) {
         nuevo->cambiar_siguiente(primero);
         primero = nuevo;
     }
     else {
-        Nodo<Objeto>* anterior = obtener_nodo(pos - 1);
+        Nodo<Dato>* anterior = obtener_nodo(pos - 1);
         nuevo->cambiar_siguiente(anterior->obtener_siguiente());
         anterior->cambiar_siguiente(nuevo);
     }
     cantidad++;
 }
 
+
+
+
+
+
+
 // baja
-template <typename Objeto>
-void Lista<Objeto>::baja(int pos) {
-    Nodo<Objeto> * borrar = primero;
+template <typename Dato>
+void Lista<Dato>::baja(int pos) {
+    Nodo<Dato> * borrar = primero;
     if (pos == 1) {
         primero = primero->obtener_siguiente();
     }
     else {
-        Nodo<Objeto>* anterior = obtener_nodo(pos - 1);
+        Nodo<Dato>* anterior = obtener_nodo(pos - 1);
         borrar = anterior->obtener_siguiente();
         anterior->cambiar_siguiente(borrar->obtener_siguiente());
     }
@@ -150,17 +206,20 @@ void Lista<Objeto>::baja(int pos) {
     delete borrar;
 }
 
+
 //Cambia el valor actual
 
-template <typename Objeto >
-void Lista<Objeto>::cambiar_dato(Objeto d, int pos){
+template <typename Dato >
+void Lista<Dato>::cambiar_dato(Dato d, int pos){
     obtener_nodo(pos)->cambiar_dato(d);
 }
 
+
+
 // obtener_nodo
-template <typename Objeto>
-Nodo<Objeto>* Lista<Objeto>::obtener_nodo(int pos) {
-    Nodo<Objeto>* aux = primero;
+template <typename Dato>
+Nodo<Dato>* Lista<Dato>::obtener_nodo(int pos) {
+    Nodo<Dato>* aux = primero;
     int contador = 1;
     while (contador < pos) {
         aux = aux->obtener_siguiente();
