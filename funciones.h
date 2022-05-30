@@ -16,7 +16,7 @@ void agregar_escritor(Lista<Escritor> *Lista_de_escritores);//listo
 
 void mostrar_nombre_y_fallecimiento_escritor(Lista<Escritor>* lista_de_escritores);//listo
 
-void modificar_ano_fallecimiento_escritor(Lista<Escritor> * lista_de_escritores);//listo
+void modificar_anio_fallecimiento_escritor(Lista<Escritor> * lista_de_escritores);//listo
 
 //Lectura sortear_una_lectura(Lista<Escritor> * lista_de_escritores);//falta
 

@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include "Nodo.h"
 #include "Lista.h"
 #include "Escritor.h"
 #include "funciones.h"
@@ -10,11 +9,11 @@ using namespace std;
 void crear_lista_lecturas();
 
 int main(){
-    int selector = 0;
+    int selector = 13;
     Lista<Escritor> lista_de_escritores;  
     crear_lista_escritores(&lista_de_escritores);
 
-    while (selector != 12){
+    while (selector != 12 && selector != 0){
         mostrar_menu();
         cin >> selector;
         switch (selector){
@@ -26,7 +25,7 @@ int main(){
             break;
         case 4:
             mostrar_nombre_y_fallecimiento_escritor(&lista_de_escritores);
-            modificar_ano_fallecimiento_escritor(&lista_de_escritores);
+            modificar_anio_fallecimiento_escritor(&lista_de_escritores);
             break;
         case 5:
             listar_escritores(&lista_de_escritores);
