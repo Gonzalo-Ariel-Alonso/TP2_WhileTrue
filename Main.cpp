@@ -1,26 +1,36 @@
 #include <iostream>
 #include <fstream>
+#include <string>
+
+#include "Nodo.h"
 #include "Lista.h"
 #include "Escritor.h"
 #include "funciones.h"
-#include "Lecturas_y_subtipos.h"
+
+#include "Cuento.h"
+#include "Novela.h"
+#include "Novela_historica.h"
+#include "Poema.h"
+#include "Lectura.h"
+
+
 using namespace std;
 
 void crear_lista_lecturas();
 
 int main(){
-    int selector = 13;
-    Lista<Escritor> lista_de_escritores;  
+    int selector = 0;
+    Lista<Escritor*> lista_de_escritores;
     crear_lista_escritores(&lista_de_escritores);
 
-    while (selector != 12 && selector != 0){
+    while (selector != 12){
         mostrar_menu();
         cin >> selector;
         switch (selector){
 
         case 3:
             agregar_escritor(&lista_de_escritores);
-            system("clear");
+            system("cls");
             cout << "Escritor agregado!" << endl;
             break;
         case 4:
@@ -29,7 +39,7 @@ int main(){
             break;
         case 5:
             listar_escritores(&lista_de_escritores);
-            //system("pause");
+            system("pause");
             cout << endl;
             break;
         case 12:

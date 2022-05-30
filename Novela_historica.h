@@ -1,9 +1,9 @@
-
-
 #ifndef LECTURAS_NOVELA_HISTORICA_H
 #define LECTURAS_NOVELA_HISTORICA_H
 
-
+#include <iostream>
+#include <string>
+using namespace std;
 #include "Novela.h"
 
 class Novela_historica: public Novela {

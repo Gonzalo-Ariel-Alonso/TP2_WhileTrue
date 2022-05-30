@@ -1,9 +1,11 @@
 #ifndef LECTURAS_POEMA_H
 #define LECTURAS_POEMA_H
-
+#include <iostream>
+#include <string>
+using namespace std;
 
 #include "Lectura.h"
-
+#include "Escritor.h"
 class Poema: public Lectura {
 private:
     int versos;

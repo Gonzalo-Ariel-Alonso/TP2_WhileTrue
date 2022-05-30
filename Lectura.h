@@ -1,14 +1,18 @@
 
 #ifndef LECTURAS_LECTURA_H
 #define LECTURAS_LECTURA_H
+
+#include <iostream>
 #include <string>
+#include "Escritor.h"
 using namespace std;
+
 class Lectura {
 protected:
     string titulo;
     float tiempo_lectura;
     int anio;
-    //Escritor * autor;
+    Escritor * autor;
     bool leido;
 public:
     Lectura ( string titulo, float tiempo_lectura, int anio, Escritor * autor );

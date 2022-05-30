@@ -1,6 +1,10 @@
 #ifndef LECTURAS_NOVELA_H
 #define LECTURAS_NOVELA_H
+
+
+#include <iostream>
 #include <string>
+using namespace std;
 #include "Lectura.h"
 #include "Escritor.h"
 

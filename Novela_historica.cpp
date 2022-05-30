@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Novela_historica.h"
 
 
@@ -13,4 +12,3 @@ void Novela_historica::mostrar(){
     Novela::mostrar();
     cout << "Tema: " << tema << endl;
 }
-

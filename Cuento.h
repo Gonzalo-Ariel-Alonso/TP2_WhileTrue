@@ -1,8 +1,13 @@
 #ifndef LECTURAS_CUENTO_H
 #define LECTURAS_CUENTO_H
 
+#include <iostream>
+#include <string>
+using namespace std;
 
 #include "Lectura.h"
+#include "Escritor.h"
+
 
 class Cuento : public Lectura {
 private:

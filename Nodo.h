@@ -1,11 +1,12 @@
 #ifndef NODO_NODO_H
 #define NODO_NODO_H
 
-#include <string>
+
 #include "Poema.h"
 #include "Cuento.h"
 #include "Novela.h"
 #include "Novela_historica.h"
+
 using namespace std;
 
 template <typename Dato>
@@ -65,7 +66,7 @@ public:
 template <typename Dato>
 Nodo<Dato>::Nodo(Dato d) {
     dato = d;
-    tipo_de_objeto = 0;
+    tipo_de_objeto = 'E';
     siguiente = 0;
 }
 
