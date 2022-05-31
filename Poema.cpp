@@ -1,5 +1,5 @@
 #include "Poema.h"
-Poema::Poema (string titulo, float tiempo_lectura, int anio , Escritor * autor , int versos)
+Poema::Poema (string titulo, int tiempo_lectura, int anio , Escritor * autor , int versos)
 :Lectura(titulo, tiempo_lectura, anio, autor)
 {
     this->versos = versos;

@@ -2,8 +2,7 @@
 #define LISTA_LISTA_H
 
 
-#include "Nodo.h"
-#include "Escritor.h"
+#include "Nodo.cpp"
 
 template <typename Dato>
 class Lista {
@@ -28,13 +27,7 @@ public:
     PRE: Recibe un dato
     Post: Agrega el dato al final de la lista
     */
-
     void alta(Dato e);
-
-    void alta(string titulo, float tiempo_lectura, int anio, Escritor * autor, char tipo_de_objeto, string dato_hijo);
-
-    void alta(string titulo, float tiempo_lectura, int anio, Escritor * autor, char tipo_de_objeto, string dato_hijo, char* tema);
-
 
     /*
     Alta
@@ -60,11 +53,6 @@ public:
     POS: devuelve el elemento que esta en pos, se empieza por 1
     */
     Dato consulta(int pos);
-
-
-    //PRE: Recibe una posicion 1 <= pos <= obtener_cantidad()
-    //POST: Devuelve el caracter que indica el tipo de dato que tienen el nodo en esa posicion.
-    char consulta_tipo_de_dato(int pos);
 
 
     /*
@@ -119,45 +107,10 @@ Dato Lista<Dato>::consulta(int pos) {
     return aux->obtener_dato();
 }
 
-// Consulta tipo de dato
-template <typename Dato>
-char Lista<Dato>::consulta_tipo_de_dato(int pos) {
-    Nodo<Dato>* aux = obtener_nodo(pos);
-    return aux->obtener_tipo_de_dato();
-}
-
 //Alta al final
 template <typename Dato>
 void Lista<Dato>::alta(Dato e) {
     Nodo<Dato>* nuevo = new Nodo<Dato>(e);
-    if (cantidad == 0) {
-        primero = nuevo;
-    }
-    else {
-        Nodo<Dato>* ultimo = obtener_nodo(cantidad);
-        ultimo->cambiar_siguiente(nuevo);
-    }
-    cantidad++;
-}
-
-//Alta al final
-template <typename Dato>
-void Lista<Dato>::alta(string titulo, float tiempo_lectura, int anio,Escritor * autor, char tipo_de_objeto, string dato_hijo) {
-    Nodo<Dato>* nuevo = new Nodo<Dato>(titulo, tiempo_lectura, anio, autor, tipo_de_objeto, dato_hijo);
-    if (cantidad == 0) {
-        primero = nuevo;
-    }
-    else {
-        Nodo<Dato>* ultimo = obtener_nodo(cantidad);
-        ultimo->cambiar_siguiente(nuevo);
-    }
-    cantidad++;
-}
-
-template < typename Dato >
-void Lista<Dato>::alta(string titulo, float tiempo_lectura, int anio,Escritor * autor, char tipo_de_objeto, string dato_hijo, char* tema)
-{
-    Nodo<Dato>* nuevo = new Nodo<Dato>(titulo, tiempo_lectura, anio, autor, tipo_de_objeto, dato_hijo, tema);
     if (cantidad == 0) {
         primero = nuevo;
     }
@@ -184,10 +137,6 @@ void Lista<Dato>::alta(Dato e, int pos) {
     }
     cantidad++;
 }
-
-
-
-
 
 
 
@@ -228,5 +177,6 @@ Nodo<Dato>* Lista<Dato>::obtener_nodo(int pos) {
     }
     return aux;
 }
+
 
 #endif //LISTA_LISTA_H

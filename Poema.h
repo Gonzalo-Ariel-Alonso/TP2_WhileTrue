@@ -10,7 +10,7 @@ class Poema: public Lectura {
 private:
     int versos;
 public:
-    Poema (string titulo, float tiempo_lectura, int anio , Escritor * autor , int versos);
+    Poema (string titulo, int tiempo_lectura, int anio , Escritor * autor , int versos);
     ~Poema()=default;
     void mostrar()override;
 };
