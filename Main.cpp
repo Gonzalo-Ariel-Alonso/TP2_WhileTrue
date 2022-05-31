@@ -19,18 +19,18 @@ using namespace std;
 void crear_lista_lecturas();
 
 int main(){
-    int selector = 0;
+    int selector = 13;
     Lista<Escritor*> lista_de_escritores;
     crear_lista_escritores(&lista_de_escritores);
 
-    while (selector != 12){
+    while (selector != 12 && selector != 0){
         mostrar_menu();
         cin >> selector;
         switch (selector){
 
         case 3:
             agregar_escritor(&lista_de_escritores);
-            system("cls");
+            system("clear");
             cout << "Escritor agregado!" << endl;
             break;
         case 4:
@@ -39,11 +39,11 @@ int main(){
             break;
         case 5:
             listar_escritores(&lista_de_escritores);
-            system("pause");
             cout << endl;
             break;
         case 12:
             cout << "Adios!" << endl << endl;
+            system("clear");
             break;
         default:
             cout << "Opcion en invalida. Intentelo de nuevo" << endl << endl;
@@ -90,7 +90,7 @@ void crear_lista_lecturas(){
         Cuento *ref = new Cuento(tipo_lectura,titulo,duracion_lectura,ano_publicacion,puntero_escritor,referencia_a_lectura);
         lista_de_escritores->alta(ref,pos);
     }
-}*/
+}
 void crear_lista_lecturas(Lista<Lectura*> * lista_lecturas, Lista<Escritor*> * lista_escritores){
     ifstream archivo;
 
@@ -148,3 +148,4 @@ void crear_lista_lecturas(Lista<Lectura*> * lista_lecturas, Lista<Escritor*> * l
 
     archivo.close();
   }
+*/

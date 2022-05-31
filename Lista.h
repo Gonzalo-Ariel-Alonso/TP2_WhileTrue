@@ -2,7 +2,7 @@
 #define LISTA_LISTA_H
 
 
-#include "Nodo.cpp"
+#include "Nodo.h"
 
 template <typename Dato>
 class Lista {

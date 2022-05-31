@@ -20,7 +20,7 @@ void mostrar_menu(){
     cout << "12 - Salir" << endl;
 }
 
-void crear_lista_escritores(Lista<Escritor *>*  lista_de_escritores){
+void crear_lista_escritores(Lista<Escritor*>*  lista_de_escritores){
     ifstream escritores;
     escritores.open("escritores.txt");
     string referencia_escritor;
@@ -42,8 +42,8 @@ void crear_lista_escritores(Lista<Escritor *>*  lista_de_escritores){
             getline(escritores,vacio);
         }
         //crear objeto escritor
-        Escritor ref(referencia_escritor,nombre,nacionalidad,anio_nacimiento,anio_fallecimiento);
-        lista_de_escritores->alta(&ref,pos);
+        Escritor* aux = new Escritor(referencia_escritor,nombre,nacionalidad,anio_nacimiento,anio_fallecimiento);
+        lista_de_escritores->alta(aux,pos);
         pos++;
 
         anio_fallecimiento = "";
@@ -80,13 +80,12 @@ void agregar_escritor(Lista<Escritor *> * Lista_de_escritores){
     cin >> anio_fallecimiento;
 
 
-    Escritor ref(referencia_escritor,nombre,nacionalidad,anio_nacimiento,anio_fallecimiento);
-    Lista_de_escritores->alta(&ref,ultima_posicion);
+    Escritor* escritor_nuevo = new Escritor(referencia_escritor,nombre,nacionalidad,anio_nacimiento,anio_fallecimiento);
+    Lista_de_escritores->alta(escritor_nuevo,ultima_posicion);
 
     cout << "Usted agrego el escritor: " << endl;
     Escritor * aux = Lista_de_escritores->consulta(ultima_posicion);
     aux->mostrar_datos();
-    system("pause");
 }
 
 void mostrar_nombre_y_fallecimiento_escritor(Lista<Escritor *> * lista_de_escritores){
@@ -114,7 +113,6 @@ void modificar_anio_fallecimiento_escritor(Lista<Escritor *> * lista_de_escritor
         cout << "Fecha de fallecimiento modificada con exito"<< endl;
     }
     else if (pos_escritor > cantidad_escritores && pos_escritor != 0 ){
-        system("cls");
         cout << "Escritor inexistente" << endl;
     }
 }
