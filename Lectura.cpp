@@ -4,7 +4,8 @@ using namespace std;
 
 #include "Lectura.h"
 
-Lectura::Lectura (string titulo, int tiempo_lectura, int anio, Escritor * autor ){
+Lectura::Lectura (char tipo_de_objeto, string titulo, int tiempo_lectura, int anio, Escritor * autor ){
+    this->tipo_de_objeto = tipo_de_objeto;
     this->titulo = titulo;
     this->tiempo_lectura = tiempo_lectura;
     this->anio = anio;

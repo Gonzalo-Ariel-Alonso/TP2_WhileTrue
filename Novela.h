@@ -14,7 +14,7 @@ class Novela: public Lectura{
 protected:
     string genero;
 public:
-    Novela(string titulo, int tiempo_lectura, int anio , Escritor * autor , string genero);
+    Novela(char tipo_de_objeto, string titulo, int tiempo_lectura, int anio , Escritor * autor , string genero);
 
     ~Novela()=default;
     virtual void mostrar();

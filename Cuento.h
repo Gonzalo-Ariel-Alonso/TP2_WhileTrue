@@ -13,7 +13,7 @@ class Cuento : public Lectura {
 private:
     string titulo_de_libro;
 public:
-    Cuento (string titulo, int tiempo_lectura, int anio , Escritor * autor , string titulo_de_libro);
+    Cuento (char tipo_de_objeto, string titulo, int tiempo_lectura, int anio , Escritor * autor , string titulo_de_libro);
     ~Cuento()=default;
     void mostrar() override;
 

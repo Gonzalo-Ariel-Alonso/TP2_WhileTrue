@@ -9,13 +9,14 @@ using namespace std;
 
 class Lectura {
 protected:
+    char tipo_de_objeto;
     string titulo;
     int tiempo_lectura;
     int anio;
     Escritor * autor;
     bool leido;
 public:
-    Lectura ( string titulo, int tiempo_lectura, int anio, Escritor * autor );
+    Lectura ( char tipo_de_objeto, string titulo, int tiempo_lectura, int anio, Escritor * autor );
     ~Lectura() = default;
     virtual void mostrar () = 0;
     bool get_leido ();

@@ -1,6 +1,6 @@
 #include "Cuento.h"
-Cuento::Cuento (string titulo, int tiempo_lectura, int anio, Escritor * autor , string titulo_de_libro)
-: Lectura(titulo, tiempo_lectura, anio, autor)
+Cuento::Cuento (char tipo_de_objeto, string titulo, int tiempo_lectura, int anio, Escritor * autor , string titulo_de_libro)
+: Lectura(tipo_de_objeto, titulo, tiempo_lectura, anio, autor)
 {
     this->titulo_de_libro = titulo_de_libro;
 }
