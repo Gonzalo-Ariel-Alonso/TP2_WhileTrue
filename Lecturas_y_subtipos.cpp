@@ -27,8 +27,12 @@ void Lectura::mostar_filtrado_por_escritor(string esritor_a_filtrar){
     }
 }
 
-string Lectura::obtener_tipo_de_lectura(){
+string Lectura::get_tipo_de_lectura(){
     return tipo_de_lectura;
+}
+
+string Lectura::get_titulo(){
+    return titulo;
 }
 
 //Implementacion poema
@@ -101,6 +105,7 @@ void Novela_historica::mostrar_datos(){
     cout << "Duracion aproximada en minutos: " << duracion_lectura << endl;
     cout << "Anio de publicacion: " << anio_publicacion << endl;
     cout << "Autor: " << autor->devolver_nombre() << endl; 
-    cout << "Genero: " << genero << endl << endl;  
+    cout << "Genero: " << genero << endl;
+    cout << "Descripcion: " << descripcion << endl << endl;  
 
 }

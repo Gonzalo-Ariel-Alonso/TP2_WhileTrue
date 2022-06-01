@@ -2,6 +2,7 @@
 #include <fstream>
 #include "funciones.h"
 #include "Escritor.h"
+#include "Lecturas_y_subtipos.h"
 using namespace std;
 
 void mostrar_menu(){
@@ -116,5 +117,55 @@ void modificar_anio_fallecimiento_escritor(Lista<Escritor>* lista_de_escritores)
     else if (pos_escritor > cantidad_escritores && pos_escritor != 0 ){
         system("cls");
         cout << "Escritor inexistente" << endl;
+    }
+}
+
+int posicion_ordenada(int anio_lectura_actual, Lista<Lectura*>* lista_de_lecturas){
+    int posicion_ordenada = 1;
+    if  (lista_de_lecturas->vacia())
+        posicion_ordenada = 1;
+    else{
+        for (int pos = 1 ; pos <= lista_de_lecturas->obtener_cantidad() ; pos++ ){
+            if (anio_lectura_actual < lista_de_lecturas->consulta(pos)->get_anio_publicacion()){
+                posicion_ordenada = pos;
+                pos = lista_de_lecturas->obtener_cantidad(); //cortar for
+            }
+            else if (anio_lectura_actual >= lista_de_lecturas->consulta(pos)->get_anio_publicacion())
+                posicion_ordenada = pos + 1;
+        }
+    }
+    return posicion_ordenada;
+}
+
+void validador_de_entradas_int(int entrada,int parametro_minimo,int parametro_maximo){
+    if (parametro_minimo > entrada || entrada > parametro_maximo || cin.fail()){
+    cout << "Entrada invalida, intentelo de nuevo" << endl;
+    cin.clear();
+    cin.sync();
+    }
+}
+
+void quitar_lectura(Lista<Lectura*>* lista_de_lecturas){
+    int pos;
+    cout << "Digite el numero de referencia de la lectuda que desea eliminar" << endl;
+    for (pos = 1; pos <= lista_de_lecturas->obtener_cantidad() ; pos++){
+        cout << pos << " - " << lista_de_lecturas->consulta(pos)->get_titulo() << endl;
+    }
+    while (1 > pos || pos > lista_de_lecturas->obtener_cantidad()){
+        cin >> pos;
+        validador_de_entradas_int(pos,1,lista_de_lecturas->obtener_cantidad());
+    }
+    lista_de_lecturas->baja(pos);
+    cout << "Lectura eliminada con exito" << endl << endl;
+}
+
+void listar_lecturas(Lista<Lectura*>* lista_de_lecturas){
+    int cantidad_lecturas = lista_de_lecturas->obtener_cantidad();
+    int pos = 1;
+    for (pos; pos <= cantidad_lecturas; pos++){
+        Lectura * _lectura;
+        _lectura = lista_de_lecturas->consulta(pos);
+        string referencia = _lectura->get_tipo_de_lectura();
+        _lectura->mostrar_datos();
     }
 }

@@ -1,5 +1,6 @@
 #include "Lista.h"
 #include "Escritor.h"
+#include "Lecturas_y_subtipos.h"
 //Pre:-
 //Post: Muestra el menu del programa
 
@@ -25,4 +26,14 @@ void listar_novelas_por_genero(Lista<Escritor> * lista_de_escritores);//falta
 void listar_lecturas(Lista<Escritor> * lista_de_escritores);//falta
 
 void cambiar_dato_escritor(Lista<Escritor> * lista_de_escritores);//falta
+
+void validador_de_entradas_int(int entrada,int parametro_minimo,int parametro_maximo);
+
+void quitar_lectura(Lista<Lectura*>* lista_de_lecturas);
+
+int posicion_ordenada(int anio_lectura_actual, Lista<Lectura*>* lista_de_lecturas);
+
+
+
+void listar_lecturas(Lista<Lectura*>* lista_de_lecturas);
 

@@ -7,13 +7,12 @@
 #include "Lecturas_y_subtipos.h"
 #include <cstring>
 #include <typeinfo>
-using namespace std;
 
-void listar_lecturas(Lista<Lectura*>* lista_de_lecturas);
+using namespace std;
 
 void leer_archivo_lecturas(Lista<Escritor> *lista_de_escritores, Lista<Lectura*>* lista_de_lecturas);
 
-int posicion_ordenada(int anio_lectura_actual, Lista<Lectura*>* lista_de_lecturas);
+void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> *lista_de_escritores );
 
 int main(){
     int selector;
@@ -26,10 +25,14 @@ int main(){
         mostrar_menu();
         cin >> selector;
         switch (selector){
-
+        case 1:
+            agregar_lectura(&lista_de_lecturas,&lista_de_escritores);
+            break;
+        case 2:
+            quitar_lectura(&lista_de_lecturas);
+            break;
         case 3:
             agregar_escritor(&lista_de_escritores);
-            system("cls");
             cout << "Escritor agregado!" << endl;
             break;
         case 4:
@@ -37,11 +40,12 @@ int main(){
             modificar_anio_fallecimiento_escritor(&lista_de_escritores);
             break;
         case 5:
+            cout << "--------LISTA DE ESCRITORES--------" << endl;
             listar_escritores(&lista_de_escritores);
-            system("pause");
             cout << endl;
             break;
         case 7:
+            cout << "--------LISTA DE LECUTRAS--------" << endl;
             listar_lecturas(&lista_de_lecturas);
             break;
         case 12:
@@ -50,7 +54,7 @@ int main(){
             cout << "Adios!" << endl << endl;
             break;
         default:
-            cout << "Opcion en invalida. Intentelo de nuevo" << endl << endl;
+            validador_de_entradas_int(selector,1,12);
             break;
         }
     }
@@ -107,30 +111,76 @@ void leer_archivo_lecturas(Lista<Escritor> *lista_de_escritores, Lista<Lectura*>
     lecturas.close();
 }
 
-void listar_lecturas(Lista<Lectura*>* lista_de_lecturas){
-    int cantidad_lecturas = lista_de_lecturas->obtener_cantidad();
-    int pos = 1;
-    for (pos; pos <= cantidad_lecturas; pos++){
-        Lectura * _lectura;
-        _lectura = lista_de_lecturas->consulta(pos);
-        string referencia = _lectura->obtener_tipo_de_lectura();
-        _lectura->mostrar_datos();
-    }
-}
 
-int posicion_ordenada(int anio_lectura_actual, Lista<Lectura*>* lista_de_lecturas){
-    int posicion_ordenada = 1;
-    if  (lista_de_lecturas->vacia())
-        posicion_ordenada = 1;
+void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> *lista_de_escritores ){
+    string tipo_de_lectura;
+    string titulo;
+    int duracion_lectura; // en minutos
+    int ano_publicacion;
+    int referencia_autor;
+    Escritor * autor = new Escritor();
+    int posicion;
+    int referencia_tipo_lectura = 0;
+
+    cout << "Ingrese el tipo de lectura que desea agregar: " << endl;
+    cout << "1 - Cuento " << endl << "2 - Poema " << endl <<"3 - Novela"<< endl << "4 - Novela historica " << endl;
+    while (0 >= referencia_tipo_lectura || referencia_tipo_lectura > 4 ){
+        cin >> referencia_tipo_lectura;
+        validador_de_entradas_int(referencia_tipo_lectura,1,4);
+    }
+    cout << "Ingrese el titulo de la lectura: " << endl;    
+    cin >> titulo;
+    cout << "Ingrese la duracion estimada de la lectura en minutos" << endl;  
+    cin >> duracion_lectura;
+    cout << "Ingrese el ano de su publicacion" << endl;      
+    cin >> ano_publicacion;
+    cout << "Ingrese la referencia al autor que pertenece la novela o digite 0 si es desconocido" << endl;
+
+
+    for (int i = 1;i <= lista_de_escritores->obtener_cantidad();i++){
+        cout << lista_de_escritores->consulta(i).obtener_referencia() << " " << lista_de_escritores->consulta(i).devolver_nombre() << endl;
+    }
+    while (0 >= referencia_autor || referencia_autor > lista_de_escritores->obtener_cantidad()){
+        cin >> referencia_autor;
+        validador_de_entradas_int(referencia_autor,1,lista_de_escritores->obtener_cantidad());
+    }
+    *autor = lista_de_escritores->consulta(referencia_autor);
+
+    posicion = posicion_ordenada(ano_publicacion,lista_de_lecturas);
+
+    if (referencia_tipo_lectura == 1){
+        string cuento_libro_publicado;
+        tipo_de_lectura = "C";
+        cout << "Ingrese el libro donde fue publicado el cuento" << endl;
+        cin >> cuento_libro_publicado;
+        Cuento * Nuevo_cuento = new Cuento(tipo_de_lectura,titulo,duracion_lectura,ano_publicacion,autor,cuento_libro_publicado);
+        lista_de_lecturas->alta(Nuevo_cuento,posicion);
+    }
+    else if (referencia_tipo_lectura == 2){
+        int cantidad_de_versos;
+        tipo_de_lectura = "P";
+        cout << "Ingrese la cantidad de versos del poema" << endl;
+        cin >> cantidad_de_versos;
+        Poema * Nuevo_poema = new Poema(tipo_de_lectura,titulo,duracion_lectura,ano_publicacion,autor,cantidad_de_versos);
+        lista_de_lecturas->alta(Nuevo_poema,posicion);    
+    }
     else{
-        for (int pos = 1 ; pos <= lista_de_lecturas->obtener_cantidad() ; pos++ ){
-            if (anio_lectura_actual < lista_de_lecturas->consulta(pos)->get_anio_publicacion()){
-                posicion_ordenada = pos;
-                pos = lista_de_lecturas->obtener_cantidad(); //cortar for
-            }
-            else if (anio_lectura_actual >= lista_de_lecturas->consulta(pos)->get_anio_publicacion())
-                posicion_ordenada = pos + 1;
+        string genero_novela;
+        tipo_de_lectura = "N";
+        cout << "Ingrese el genero de la novela" << endl;
+        cin >> genero_novela;
+        if(referencia_tipo_lectura == 4){
+            char * tema_novela_historica;
+            cout << "Describa en pocas palabras el tema de la novela historica" << endl;
+            cin >> tema_novela_historica;
+            Novela_historica * Nueva_NH = new Novela_historica(tipo_de_lectura,titulo,duracion_lectura,ano_publicacion,autor,genero_novela,tema_novela_historica);
+            lista_de_lecturas->alta(Nueva_NH,posicion);
+        }
+        else{
+            Novela *Nueva_novela = new Novela(tipo_de_lectura,titulo,duracion_lectura,ano_publicacion,autor,genero_novela);
+            lista_de_lecturas->alta(Nueva_novela,posicion);
         }
     }
-    return posicion_ordenada;
+    cout << endl << "Lectura agregada!" << endl << endl;
 }
+
