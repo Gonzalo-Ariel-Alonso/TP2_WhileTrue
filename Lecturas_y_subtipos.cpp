@@ -17,10 +17,8 @@ Lectura::Lectura(){}//def
 Lectura::~Lectura(){
 }
 
-void Lectura::mostar_filtrado_por_anios(int anio_inicial,int anio_final){
-    if (anio_inicial < anio_publicacion < anio_final){
-  //      mostrar_datos();
-    }
+int Lectura::get_anio_publicacion(){
+    return anio_publicacion;
 }
 
 void Lectura::mostar_filtrado_por_escritor(string esritor_a_filtrar){

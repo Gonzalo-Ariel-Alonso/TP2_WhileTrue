@@ -13,10 +13,10 @@ void listar_lecturas(Lista<Lectura*>* lista_de_lecturas);
 
 void leer_archivo_lecturas(Lista<Escritor> *lista_de_escritores, Lista<Lectura*>* lista_de_lecturas);
 
-//void crear_lista_de_lecutras(string tipo_lectura,string titulo,int duracion_lectura,int ano_publicacion,string referencia_a_lectura,string referencia_a_escritor, Lista<Escritor> *lista_de_escritores,Lista<Lectura*> * lista_de_lecturas,char * tema_novela_historica);
+int posicion_ordenada(int anio_lectura_actual, Lista<Lectura*>* lista_de_lecturas);
 
 int main(){
-    int selector = 7;
+    int selector;
     Lista<Escritor> lista_de_escritores;  
     Lista<Lectura*> lista_de_lecturas;
     crear_lista_escritores(&lista_de_escritores);
@@ -76,37 +76,32 @@ void leer_archivo_lecturas(Lista<Escritor> *lista_de_escritores, Lista<Lectura*>
         char * tema_novela_historica_ch = &tema_novela_historica[0];
 //Buscar autor en lista de escritores
         Escritor *  autor_de_lectura = new Escritor();
-        int pos = 1;
-        for (pos ; pos <= lista_de_escritores->obtener_cantidad() ; pos++){
+        for (int pos = 1; pos <= lista_de_escritores->obtener_cantidad() ; pos++){
             *autor_de_lectura = lista_de_escritores->consulta(pos);
             if (referencia_a_escritor ==  autor_de_lectura->obtener_referencia()){
                 pos = lista_de_escritores->obtener_cantidad();
             }
         }
 //Crear lista_de_lecturas con sus subtipos de clase adentro
-        pos = 1;
+        int posicion = posicion_ordenada(stoi(ano_publicacion),lista_de_lecturas);
         if (tipo_lectura == "C"){
             Cuento* Cu = new Cuento(tipo_lectura,titulo,stoi(duracion_lectura),stoi(ano_publicacion),autor_de_lectura,referencia_a_lectura);
-            lista_de_lecturas->alta(Cu,pos);
-            pos++;
+            lista_de_lecturas->alta(Cu,posicion);
         }
         else if(tipo_lectura == "N"){
             if (referencia_a_lectura == "HISTORICA"){
                 Novela_historica* PNH = new Novela_historica(tipo_lectura,titulo,stoi(duracion_lectura),stoi(ano_publicacion),autor_de_lectura,referencia_a_lectura,tema_novela_historica_ch);
-                lista_de_lecturas->alta(PNH,pos);
-                pos++;           
+                lista_de_lecturas->alta(PNH,posicion);           
             }
             else{
                 Novela * PN = new Novela(tipo_lectura,titulo,stoi(duracion_lectura),stoi(ano_publicacion),autor_de_lectura,referencia_a_lectura);
-                lista_de_lecturas->alta(PN,pos);
-                pos++;
+                lista_de_lecturas->alta(PN,posicion);
             }
         }
         else if(tipo_lectura == "P"){
             int cantidad_versos = stoi(referencia_a_lectura);
             Poema * Po = new Poema(tipo_lectura,titulo,stoi(duracion_lectura),stoi(ano_publicacion),autor_de_lectura,cantidad_versos);
-            lista_de_lecturas->alta(Po,pos);
-            pos++;    
+            lista_de_lecturas->alta(Po,posicion);  
         }   
     }
     lecturas.close();
@@ -121,4 +116,21 @@ void listar_lecturas(Lista<Lectura*>* lista_de_lecturas){
         string referencia = _lectura->obtener_tipo_de_lectura();
         _lectura->mostrar_datos();
     }
+}
+
+int posicion_ordenada(int anio_lectura_actual, Lista<Lectura*>* lista_de_lecturas){
+    int posicion_ordenada = 1;
+    if  (lista_de_lecturas->vacia())
+        posicion_ordenada = 1;
+    else{
+        for (int pos = 1 ; pos <= lista_de_lecturas->obtener_cantidad() ; pos++ ){
+            if (anio_lectura_actual < lista_de_lecturas->consulta(pos)->get_anio_publicacion()){
+                posicion_ordenada = pos;
+                pos = lista_de_lecturas->obtener_cantidad(); //cortar for
+            }
+            else if (anio_lectura_actual >= lista_de_lecturas->consulta(pos)->get_anio_publicacion())
+                posicion_ordenada = pos + 1;
+        }
+    }
+    return posicion_ordenada;
 }

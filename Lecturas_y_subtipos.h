@@ -18,7 +18,7 @@ public:
     ~Lectura();
     Lectura();//constructoir dcefault
     virtual void mostrar_datos() = 0;
-    void mostar_filtrado_por_anios(int anio_inicial,int anio_final);
+    int get_anio_publicacion();
     void mostar_filtrado_por_escritor(string esritor_a_filtrar);
     string obtener_tipo_de_lectura();
 };
