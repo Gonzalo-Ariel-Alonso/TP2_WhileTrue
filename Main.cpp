@@ -34,7 +34,7 @@ int main(){
             break;
         case 4:
             mostrar_nombre_y_fallecimiento_escritor(&lista_de_escritores);
-            modificar_ano_fallecimiento_escritor(&lista_de_escritores);
+            modificar_anio_fallecimiento_escritor(&lista_de_escritores);
             break;
         case 5:
             listar_escritores(&lista_de_escritores);

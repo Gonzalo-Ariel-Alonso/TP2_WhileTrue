@@ -98,7 +98,7 @@ void mostrar_nombre_y_fallecimiento_escritor(Lista<Escritor>* lista_de_escritore
     }
 }
 
-void modificar_ano_fallecimiento_escritor(Lista<Escritor>* lista_de_escritores){
+void modificar_anio_fallecimiento_escritor(Lista<Escritor>* lista_de_escritores){
     int pos_escritor;
     string fecha_fallecimiento_nueva;
     int cantidad_escritores = lista_de_escritores->obtener_cantidad();
@@ -109,6 +109,7 @@ void modificar_ano_fallecimiento_escritor(Lista<Escritor>* lista_de_escritores){
         cin >> fecha_fallecimiento_nueva;
         Escritor aux = lista_de_escritores->consulta(pos_escritor);
         aux.modificar_anio_fallecimiento(fecha_fallecimiento_nueva);
+        lista_de_escritores->cambiar_dato(aux,pos_escritor);
         system("cls");
         cout << "Fecha de fallecimiento modificada con exito"<< endl;
     }
