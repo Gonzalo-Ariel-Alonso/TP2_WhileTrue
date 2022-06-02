@@ -52,7 +52,7 @@ Nodo<Dato>::Nodo(Dato d) {
 template < typename Dato >
 Nodo<Dato>::~Nodo() {
     siguiente = 0;
-    //delete dato; // BORRA EL DATO
+    delete dato; // BORRA EL DATO
     delete siguiente;
 }
 
