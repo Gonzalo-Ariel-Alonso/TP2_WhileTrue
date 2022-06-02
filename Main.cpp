@@ -11,14 +11,14 @@
 
 using namespace std;
 
-void leer_archivo_lecturas(Lista<Escritor> *lista_de_escritores, Lista<Lectura*>* lista_de_lecturas);
+void leer_archivo_lecturas(Lista<Escritor*> *lista_de_escritores, Lista<Lectura*>* lista_de_lecturas);
 
-void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> *lista_de_escritores );
+void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor*> *lista_de_escritores );
 
 int main(){
     
     int selector;
-    Lista<Escritor> lista_de_escritores;  
+    Lista<Escritor*> lista_de_escritores;  
     Lista<Lectura*> lista_de_lecturas;
     crear_lista_escritores(&lista_de_escritores);
     leer_archivo_lecturas(&lista_de_escritores,&lista_de_lecturas);
@@ -39,7 +39,7 @@ int main(){
             break;
         case 4:
             mostrar_nombre_y_fallecimiento_escritor(&lista_de_escritores);
-            modificar_anio_fallecimiento_escritor(&lista_de_escritores);
+            modificar_ano_fallecimiento_escritor(&lista_de_escritores);
             break;
         case 5:
             cout << "--------LISTA DE ESCRITORES--------" << endl;
@@ -73,7 +73,7 @@ int main(){
     return 0;
 }
 
-void leer_archivo_lecturas(Lista<Escritor> *lista_de_escritores, Lista<Lectura*>* lista_de_lecturas){
+void leer_archivo_lecturas(Lista<Escritor*> *lista_de_escritores, Lista<Lectura*>* lista_de_lecturas){
     ifstream lecturas;
     lecturas.open("lecturas.txt");
     string tipo_lectura, titulo, duracion_lectura, ano_publicacion, referencia_a_lectura, tema_novela_historica, referencia_a_escritor, vacio;
@@ -92,7 +92,7 @@ void leer_archivo_lecturas(Lista<Escritor> *lista_de_escritores, Lista<Lectura*>
 //Buscar autor en lista de escritores
         Escritor *  autor_de_lectura = new Escritor();
         for (int pos = 1; pos <= lista_de_escritores->obtener_cantidad() ; pos++){
-            *autor_de_lectura = lista_de_escritores->consulta(pos);
+            autor_de_lectura = lista_de_escritores->consulta(pos);
             if (referencia_a_escritor ==  autor_de_lectura->obtener_referencia()){
                 pos = lista_de_escritores->obtener_cantidad();
             }
@@ -124,7 +124,7 @@ void leer_archivo_lecturas(Lista<Escritor> *lista_de_escritores, Lista<Lectura*>
 }
 
 
-void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> *lista_de_escritores ){
+void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor*> *lista_de_escritores ){
     string tipo_de_lectura;
     string titulo;
     int duracion_lectura; // en minutos
@@ -150,13 +150,13 @@ void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> *lista_d
 
 
     for (int i = 1;i <= lista_de_escritores->obtener_cantidad();i++){
-        cout << lista_de_escritores->consulta(i).obtener_referencia() << " " << lista_de_escritores->consulta(i).devolver_nombre() << endl;
+        cout << lista_de_escritores->consulta(i)->obtener_referencia() << " " << lista_de_escritores->consulta(i)->devolver_nombre() << endl;
     }
     while (0 >= referencia_autor || referencia_autor > lista_de_escritores->obtener_cantidad()){
         cin >> referencia_autor;
         validar_entrada(referencia_autor,1,lista_de_escritores->obtener_cantidad());
     }
-    *autor = lista_de_escritores->consulta(referencia_autor);
+    autor = lista_de_escritores->consulta(referencia_autor);
 
     posicion = comparar(ano_publicacion,lista_de_lecturas);
 

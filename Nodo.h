@@ -52,6 +52,7 @@ Nodo<Objeto>::Nodo(Objeto d) {
 template < typename Objeto >
 Nodo<Objeto>::~Nodo() {
     siguiente = 0;
+    delete dato;
     delete siguiente;
 }
 

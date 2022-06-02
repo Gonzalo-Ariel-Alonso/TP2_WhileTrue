@@ -22,7 +22,7 @@ void mostrar_menu(){
     cout << "12 - Salir" << endl;
 }   
 
-void crear_lista_escritores(Lista<Escritor>*  lista_de_escritores){
+void crear_lista_escritores(Lista<Escritor*>*  lista_de_escritores){
     ifstream escritores;
     escritores.open("escritores.txt");
     string referencia_escritor;
@@ -44,7 +44,7 @@ void crear_lista_escritores(Lista<Escritor>*  lista_de_escritores){
             getline(escritores,vacio);
         }
         //crear objeto escritor
-        Escritor ref(referencia_escritor,nombre,nacionalidad,anio_nacimiento,anio_fallecimiento);
+        Escritor* ref = new Escritor(referencia_escritor,nombre,nacionalidad,anio_nacimiento,anio_fallecimiento);
         lista_de_escritores->alta(ref,pos);
         pos++;
 
@@ -56,16 +56,15 @@ void crear_lista_escritores(Lista<Escritor>*  lista_de_escritores){
     escritores.close();
 }
 
-void listar_escritores(Lista<Escritor> * lista_escritores){
+void listar_escritores(Lista<Escritor*> * lista_escritores){
     int cantidad_escritores = lista_escritores->obtener_cantidad();
     int pos = 1;
     for ( pos; pos <= cantidad_escritores; pos++){
-            Escritor aux = lista_escritores->consulta(pos);
-            aux.mostrar_datos();
+            lista_escritores->consulta(pos)->mostrar_datos();
     }
 }
 
-void agregar_escritor(Lista<Escritor> * Lista_de_escritores){
+void agregar_escritor(Lista<Escritor*> * Lista_de_escritores){
     int ultima_posicion = Lista_de_escritores->obtener_cantidad() + 1;
     string referencia_escritor = "("+to_string(ultima_posicion)+")";
     string nombre;
@@ -82,25 +81,22 @@ void agregar_escritor(Lista<Escritor> * Lista_de_escritores){
     cin >> anio_fallecimiento;
 
 
-    Escritor ref(referencia_escritor,nombre,nacionalidad,anio_nacimiento,anio_fallecimiento);
+    Escritor* ref = new Escritor(referencia_escritor,nombre,nacionalidad,anio_nacimiento,anio_fallecimiento);
     Lista_de_escritores->alta(ref,ultima_posicion);
 
     cout << "Usted agrego el escritor: " << endl;
-    Escritor aux = Lista_de_escritores->consulta(ultima_posicion);
-    aux.mostrar_datos();
+    Lista_de_escritores->consulta(ultima_posicion)->mostrar_datos();
     system("pause");
 }
 
-void mostrar_nombre_y_fallecimiento_escritor(Lista<Escritor>* lista_de_escritores){
+void mostrar_nombre_y_fallecimiento_escritor(Lista<Escritor*>* lista_de_escritores){
     int cantidad_escritores = lista_de_escritores->obtener_cantidad();
     for (int pos = 1 ; pos <= cantidad_escritores; pos++){
-        Escritor aux = lista_de_escritores->consulta(pos);
-        cout << pos << " - ";
-        aux.mostrar_nombre_y_fallecimiento();
+        lista_de_escritores->consulta(pos)->mostrar_nombre_y_fallecimiento();
     }
 }
 
-void modificar_anio_fallecimiento_escritor(Lista<Escritor>* lista_de_escritores){
+void modificar_ano_fallecimiento_escritor(Lista<Escritor*>* lista_de_escritores){
     int pos_escritor;
     string fecha_fallecimiento_nueva;
     int cantidad_escritores = lista_de_escritores->obtener_cantidad();
@@ -109,8 +105,8 @@ void modificar_anio_fallecimiento_escritor(Lista<Escritor>* lista_de_escritores)
     if(pos_escritor <= cantidad_escritores && pos_escritor != 0){
         cout << "Digite fecha de fallecimiento del escritor" << endl;
         cin >> fecha_fallecimiento_nueva;
-        Escritor aux = lista_de_escritores->consulta(pos_escritor);
-        aux.modificar_anio_fallecimiento(fecha_fallecimiento_nueva);
+        Escritor * aux = lista_de_escritores->consulta(pos_escritor);
+        aux->modificar_anio_fallecimiento(fecha_fallecimiento_nueva);
         lista_de_escritores->cambiar_dato(aux,pos_escritor);
         system("cls");
         cout << "Fecha de fallecimiento modificada con exito"<< endl;
@@ -204,13 +200,13 @@ void listar_lectura_filtrada_por_ano(Lista<Lectura*>* lista_de_lecturas){
     
 }
 
-void listar_lecturas_filtrado_por_escritor(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> * lista_de_escritores){
+void listar_lecturas_filtrado_por_escritor(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor*> * lista_de_escritores){
     int referencia_escritor;
     bool continuar = false;
-    Escritor aux;
+    Escritor* aux = new Escritor();
     cout << "Digite el parametro del escritor del cual quiere ver sus lecturas: " << endl;
     for (int i = 1;i <= lista_de_escritores->obtener_cantidad();i++){
-        cout << lista_de_escritores->consulta(i).obtener_referencia() << " " << lista_de_escritores->consulta(i).devolver_nombre() << endl;
+        cout << lista_de_escritores->consulta(i)->obtener_referencia() << " " << lista_de_escritores->consulta(i)->devolver_nombre() << endl;
     }
     while (!continuar){
         cin >> referencia_escritor;
@@ -219,7 +215,7 @@ void listar_lecturas_filtrado_por_escritor(Lista<Lectura*>* lista_de_lecturas,Li
     aux = lista_de_escritores->consulta(referencia_escritor);
     int cantidad_lecturas = lista_de_lecturas->obtener_cantidad();
     for (int pos = 1; pos <= cantidad_lecturas; pos++){
-        lista_de_lecturas->consulta(pos)->mostar_filtrado_por_escritor(aux);
+        lista_de_lecturas->consulta(pos)->mostar_filtrado_por_escritor(*aux);
     }
 }
 
@@ -242,7 +238,7 @@ Generos de_string_a_enumerado(string genero_string){
     return genero;
 }
 
-void liberar_memoria(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> * lista_de_escritores){
+void liberar_memoria(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor*> * lista_de_escritores){
     for(int pos = 1; pos <= lista_de_lecturas->obtener_cantidad(); pos++){
         delete lista_de_lecturas->consulta(pos);
     }
