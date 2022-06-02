@@ -121,7 +121,7 @@ void modificar_anio_fallecimiento_escritor(Lista<Escritor>* lista_de_escritores)
     }
 }
 
-int posicion_ordenada(int anio_lectura_actual, Lista<Lectura*>* lista_de_lecturas){
+int comparar(int anio_lectura_actual, Lista<Lectura*>* lista_de_lecturas){
     int posicion_ordenada = 1;
     if  (lista_de_lecturas->vacia())
         posicion_ordenada = 1;
@@ -221,4 +221,30 @@ void listar_lecturas_filtrado_por_escritor(Lista<Lectura*>* lista_de_lecturas,Li
     for (int pos = 1; pos <= cantidad_lecturas; pos++){
         lista_de_lecturas->consulta(pos)->mostar_filtrado_por_escritor(aux);
     }
+}
+
+Generos de_string_a_enumerado(string genero_string){
+    Generos genero;
+    if(genero_string  == "DRAMA")
+        genero = DRAMA;
+    else if (genero_string == "COMEDIA")
+        genero = COMEDIA;
+    else if (genero_string  == "FICCION")
+        genero = FICCION;
+    else if (genero_string  == "SUSPENSO")
+        genero = SUSPENSO;
+    else if (genero_string  == "TERROR")
+        genero = TERROR;
+    else if (genero_string  == "ROMANTICA")
+        genero = ROMANTICA;
+    else if (genero_string  == "HISTORICA")
+        genero = HISTORICA;
+    return genero;
+}
+
+void liberar_memoria(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> * lista_de_escritores){
+    for(int pos = 1; pos <= lista_de_lecturas->obtener_cantidad(); pos++){
+        delete lista_de_lecturas->consulta(pos);
+    }
+
 }

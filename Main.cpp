@@ -5,6 +5,7 @@
 #include "Escritor.h"
 #include "funciones.h"
 #include "Lecturas_y_subtipos.h"
+#include "generos.h"
 #include <cstring>
 #include <typeinfo>
 
@@ -15,6 +16,7 @@ void leer_archivo_lecturas(Lista<Escritor> *lista_de_escritores, Lista<Lectura*>
 void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> *lista_de_escritores );
 
 int main(){
+    
     int selector;
     Lista<Escritor> lista_de_escritores;  
     Lista<Lectura*> lista_de_lecturas;
@@ -53,6 +55,9 @@ int main(){
             break;
         case 9:
             listar_lecturas_filtrado_por_escritor(&lista_de_lecturas,&lista_de_escritores);
+            break;
+        case 10:
+
             break;
         case 12:
             lista_de_lecturas.~Lista();
@@ -93,18 +98,19 @@ void leer_archivo_lecturas(Lista<Escritor> *lista_de_escritores, Lista<Lectura*>
             }
         }
 //Crear lista_de_lecturas con sus subtipos de clase adentro
-        int posicion = posicion_ordenada(stoi(ano_publicacion),lista_de_lecturas);
+        int posicion = comparar(stoi(ano_publicacion),lista_de_lecturas);
         if (tipo_lectura == "C"){
             Cuento* Cu = new Cuento(tipo_lectura,titulo,stoi(duracion_lectura),stoi(ano_publicacion),autor_de_lectura,referencia_a_lectura);
             lista_de_lecturas->alta(Cu,posicion);
         }
         else if(tipo_lectura == "N"){
-            if (referencia_a_lectura == "HISTORICA"){
-                Novela_historica* PNH = new Novela_historica(tipo_lectura,titulo,stoi(duracion_lectura),stoi(ano_publicacion),autor_de_lectura,referencia_a_lectura,tema_novela_historica_ch);
+            Generos genero = de_string_a_enumerado(referencia_a_lectura);
+            if (genero == HISTORICA){
+                Novela_historica* PNH = new Novela_historica(tipo_lectura,titulo,stoi(duracion_lectura),stoi(ano_publicacion),autor_de_lectura,genero,tema_novela_historica_ch);
                 lista_de_lecturas->alta(PNH,posicion);           
             }
             else{
-                Novela * PN = new Novela(tipo_lectura,titulo,stoi(duracion_lectura),stoi(ano_publicacion),autor_de_lectura,referencia_a_lectura);
+                Novela * PN = new Novela(tipo_lectura,titulo,stoi(duracion_lectura),stoi(ano_publicacion),autor_de_lectura,genero);
                 lista_de_lecturas->alta(PN,posicion);
             }
         }
@@ -152,7 +158,7 @@ void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> *lista_d
     }
     *autor = lista_de_escritores->consulta(referencia_autor);
 
-    posicion = posicion_ordenada(ano_publicacion,lista_de_lecturas);
+    posicion = comparar(ano_publicacion,lista_de_lecturas);
 
     if (referencia_tipo_lectura == 1){
         string cuento_libro_publicado;
@@ -171,19 +177,21 @@ void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> *lista_d
         lista_de_lecturas->alta(Nuevo_poema,posicion);    
     }
     else{
-        string genero_novela;
+        string genero_string;
+        Generos genero;
         tipo_de_lectura = "N";
         cout << "Ingrese el genero de la novela" << endl;
-        cin >> genero_novela;
-        if(referencia_tipo_lectura == 4){
+        cin >> genero_string;
+        genero = de_string_a_enumerado(genero_string);
+        if(genero == HISTORICA){
             char * tema_novela_historica;
             cout << "Describa en pocas palabras el tema de la novela historica" << endl;
             cin >> tema_novela_historica;
-            Novela_historica * Nueva_NH = new Novela_historica(tipo_de_lectura,titulo,duracion_lectura,ano_publicacion,autor,genero_novela,tema_novela_historica);
+            Novela_historica * Nueva_NH = new Novela_historica(tipo_de_lectura,titulo,duracion_lectura,ano_publicacion,autor,genero,tema_novela_historica);
             lista_de_lecturas->alta(Nueva_NH,posicion);
         }
         else{
-            Novela *Nueva_novela = new Novela(tipo_de_lectura,titulo,duracion_lectura,ano_publicacion,autor,genero_novela);
+            Novela *Nueva_novela = new Novela(tipo_de_lectura,titulo,duracion_lectura,ano_publicacion,autor,genero);
             lista_de_lecturas->alta(Nueva_novela,posicion);
         }
     }

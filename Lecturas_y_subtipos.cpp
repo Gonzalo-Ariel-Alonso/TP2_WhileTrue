@@ -9,10 +9,6 @@ Lectura::Lectura(string _tipo_de_lectura,string _titulo,int _duracion_lectura,in
     autor = _autor;
 }
 
-/*void Lectura::mostrar_datos(){
-    cout << "asd" << endl;
-    
-}*/
 Lectura::Lectura(){}//def
 Lectura::~Lectura(){
 }
@@ -73,8 +69,8 @@ void Cuento::mostrar_datos(){
 }
 
 //Implementacion novela
-Novela::Novela(string _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, string _genero): Lectura(_tipo_de_lectura,titulo,_duracion_lectura,_anio_publicacion,_autor){
-genero = _genero;
+Novela::Novela(string _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, Generos _genero_novela): Lectura(_tipo_de_lectura,titulo,_duracion_lectura,_anio_publicacion,_autor){
+genero = _genero_novela;
 }
 
 Novela::~Novela(){
@@ -86,16 +82,34 @@ void Novela::mostrar_datos(){
     cout << "Duracion aproximada en minutos: " << duracion_lectura << endl;
     cout << "Anio de publicacion: " << anio_publicacion << endl; 
     cout << "Autor: " << autor->devolver_nombre() << endl; 
-    cout << "Genero: " << genero << endl << endl;  
+    cout << "Genero: " << de_enumerado_a_string(genero) << endl << endl;  
 }
 
-void Novela::mostar_filtrado_por_genero(string genero_a_filtrar){
+void Novela::mostar_filtrado_por_genero(Generos genero_a_filtrar){
     if (genero_a_filtrar == genero)
         mostrar_datos();
 }
+string Novela::de_enumerado_a_string(Generos genero){
+    string genero_en_string;
+    if (genero == DRAMA)
+        genero_en_string = "DRAMA";
+    else if ( genero == COMEDIA)
+        genero_en_string = "COMEDIA";
+    else if ( genero == FICCION)
+        genero_en_string = "FICCION";
+    else if ( genero == SUSPENSO)
+        genero_en_string = "SUSPENSO";
+    else if ( genero == TERROR)
+        genero_en_string = "TERROR";
+    else if ( genero == ROMANTICA)
+        genero_en_string = "ROMANTICA";
+    else if ( genero == HISTORICA)
+        genero_en_string = "HISTORICA";
+    return genero_en_string;
+}
 
 //Implementacion novela historica
-Novela_historica::Novela_historica(string _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, string _genero,char * _descripcion) : Novela(_tipo_de_lectura,titulo,_duracion_lectura,_anio_publicacion,_autor,_genero){
+Novela_historica::Novela_historica(string _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, Generos _genero,char * _descripcion) : Novela(_tipo_de_lectura,titulo,_duracion_lectura,_anio_publicacion,_autor,_genero){
     descripcion = _descripcion;
 }
 

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Escritor.h"
+#include "generos.h"
 
 using namespace std;
 
@@ -47,19 +48,20 @@ public:
 
 class Novela : public Lectura{
 protected:
-    string genero;
+    Generos genero;
 public:
-    Novela(string _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, string _genero);
+    Novela(string _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, Generos _genero_novela);
     ~Novela();
     void mostrar_datos();
-    void  mostar_filtrado_por_genero(string genero_a_filtrar);
+    void mostar_filtrado_por_genero(Generos genero_a_filtrar);
+    string de_enumerado_a_string(Generos genero);
 };
 
 class Novela_historica : public Novela{
 private:
     char * descripcion;
 public:
-    Novela_historica(string _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, string _genero,char* _descripcion);
+    Novela_historica(string _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, Generos _genero,char* _descripcion);
     ~Novela_historica();
     void mostrar_datos();
 };
