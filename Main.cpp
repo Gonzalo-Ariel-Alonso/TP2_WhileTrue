@@ -2,7 +2,6 @@
 #include <fstream>
 #include <string>
 
-#include "Nodo.h"
 #include "Lista.h"
 #include "Escritor.h"
 #include "funciones.h"
@@ -17,11 +16,18 @@
 using namespace std;
 
 void crear_lista_lecturas();
+void leer_archivo_lecturas(Lista<Escritor*>* lista_de_escritores, Lista<Lectura*>* lista_de_lecturas);
+void listar_lecturas(Lista<Lectura*>* lista_de_lecturas);
+Generos de_string_a_enumerado(string genero_string);
+void listar_lectura_filtrada_por_ano(Lista<Lectura*>* lista_de_lecturas);
 
 int main(){
     int selector = 13;
     Lista<Escritor*> lista_de_escritores;
+    Lista<Lectura*> lista_de_lecturas;
     crear_lista_escritores(&lista_de_escritores);
+    leer_archivo_lecturas(&lista_de_escritores,&lista_de_lecturas);
+
 
     while (selector != 12 && selector != 0){
         mostrar_menu();
@@ -40,6 +46,9 @@ int main(){
         case 5:
             listar_escritores(&lista_de_escritores);
             cout << endl;
+            break;
+        case 7:
+            listar_lecturas(&lista_de_lecturas);
             break;
         case 12:
             cout << "Adios!" << endl << endl;
@@ -112,12 +121,12 @@ bool validar_entrada(int entrada,int parametro_minimo,int parametro_maximo){
 }
 
 
-void leer_archivo_lecturas(Lista<Escritor> *lista_de_escritores, Lista<Lectura*>* lista_de_lecturas){
+void leer_archivo_lecturas(Lista<Escritor*>* lista_de_escritores, Lista<Lectura*>* lista_de_lecturas){
     ifstream lecturas;
     lecturas.open("lecturas.txt");
-    string tipo_lectura, titulo, duracion_lectura, ano_publicacion, referencia_a_lectura, tema_novela_historica, referencia_a_escritor, vacio;
+    string tipo_lecturas, titulo, duracion_lectura, ano_publicacion, referencia_a_lectura, tema_novela_historica, referencia_a_escritor, vacio;
     while (!lecturas.eof()){
-        getline(lecturas,tipo_lectura);
+        getline(lecturas,tipo_lecturas);
         getline(lecturas,titulo);
         getline(lecturas,duracion_lectura);
         getline(lecturas,ano_publicacion);
@@ -131,14 +140,14 @@ void leer_archivo_lecturas(Lista<Escritor> *lista_de_escritores, Lista<Lectura*>
 //Buscar autor en lista de escritores
         Escritor *  autor_de_lectura = new Escritor();
         for (int pos = 1; pos <= lista_de_escritores->obtener_cantidad() ; pos++){
-            *autor_de_lectura = lista_de_escritores->consulta(pos);
+            Escritor * autor_de_lectura = lista_de_escritores->consulta(pos);
             if (referencia_a_escritor ==  autor_de_lectura->obtener_referencia()){
                 pos = lista_de_escritores->obtener_cantidad();
             }
         }
 //Crear lista_de_lecturas con sus subtipos de clase adentro
         int posicion = comparar(stoi(ano_publicacion),lista_de_lecturas);
-        char tipo_lectura = tipo_lectura;
+        char tipo_lectura = tipo_lecturas.at(0);
         if (tipo_lectura == 'C'){
             Cuento* Cu = new Cuento(tipo_lectura,titulo,stoi(duracion_lectura),stoi(ano_publicacion),autor_de_lectura,referencia_a_lectura);
             lista_de_lecturas->alta(Cu,posicion);
@@ -163,9 +172,53 @@ void leer_archivo_lecturas(Lista<Escritor> *lista_de_escritores, Lista<Lectura*>
     lecturas.close();
 }
 
+void listar_lecturas(Lista<Lectura*>* lista_de_lecturas){
+    int cantidad_lecturas = lista_de_lecturas->obtener_cantidad();
+    int pos = 1;
+    for (pos; pos <= cantidad_lecturas; pos++){
+        Lectura * _lectura;
+        _lectura = lista_de_lecturas->consulta(pos);
+        _lectura->mostrar();
+    }
+}
 
+
+void listar_lectura_filtrada_por_ano(Lista<Lectura*>* lista_de_lecturas){
+    int cantidad_lecturas = lista_de_lecturas->obtener_cantidad();
+    int pos = 1;
+    int ano_inicial;
+    int ano_final;
+    bool una_lectura_filtrada = false;
+    bool continuar = false;
+    while(!continuar){
+        cout << "Ingrece el ano inicial para filtrar" << endl;
+        cin >> ano_inicial;
+        continuar = validar_entrada(ano_inicial,-9999,9999);
+    }
+    continuar = false;
+    while(!continuar){
+        cout << "Ingrese el ano final" << endl;
+        cin >> ano_final;
+        continuar = validar_entrada(ano_final,ano_inicial,9999);
+    }
+    for (pos; pos <= cantidad_lecturas; pos++){
+        Lectura * _lectura;
+        _lectura = lista_de_lecturas->consulta(pos);
+        if(ano_inicial <= _lectura->get_anio() && _lectura->get_anio() < ano_final)
+            _lectura->mostrar();
+            una_lectura_filtrada = true;
+    }
+    if (!una_lectura_filtrada){
+        cout << "No hay ninguna lectura entre los anos filtrados" << endl;
+    }
+    
+}
+
+
+
+/*
 void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> *lista_de_escritores ){
-    string tipo_de_lectura;
+    char tipo_de_lectura;
     string titulo;
     int duracion_lectura; // en minutos
     int ano_publicacion;
@@ -196,7 +249,7 @@ void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> *lista_d
         cin >> referencia_autor;
         validar_entrada(referencia_autor,1,lista_de_escritores->obtener_cantidad());
     }
-    *autor = lista_de_escritores->consulta(referencia_autor);
+    Escritor* autor = &lista_de_escritores->consulta(referencia_autor);
 
     posicion = comparar(ano_publicacion,lista_de_lecturas);
 
@@ -219,7 +272,7 @@ void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> *lista_d
     else{
         string genero_string;
         Generos genero;
-        tipo_de_lectura = "N";
+        tipo_de_lectura = 'N';
         cout << "Ingrese el genero de la novela" << endl;
         cin >> genero_string;
         genero = de_string_a_enumerado(genero_string);
@@ -237,3 +290,4 @@ void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> *lista_d
     }
     cout << endl << "Lectura agregada!" << endl << endl;
 }
+*/

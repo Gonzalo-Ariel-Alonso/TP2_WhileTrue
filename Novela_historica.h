@@ -10,7 +10,7 @@ class Novela_historica: public Novela {
 private:
     char* tema;
 public:
-    Novela_historica(char tipo_de_objeto, string titulo, int tiempo_lectura, int anio , Escritor * autor , string genero, char* tema);
+    Novela_historica(char tipo_de_objeto, string titulo, int tiempo_lectura, int anio , Escritor * autor , Generos genero, char* tema);
 
     ~Novela_historica()=default;
     void mostrar()override;
