@@ -6,12 +6,12 @@
 #include "Lista.h"
 #include "Escritor.h"
 #include "funciones.h"
-
 #include "Cuento.h"
 #include "Novela.h"
 #include "Novela_historica.h"
 #include "Poema.h"
 #include "Lectura.h"
+#include "Genero.h"
 
 
 using namespace std;
@@ -54,98 +54,186 @@ int main(){
     return 0;
 }
 
-/*
-void crear_lista_lecturas(){
+Generos de_string_a_enumerado(string genero_string){
+    Generos genero;
+    if(genero_string  == "DRAMA")
+        genero = DRAMA;
+    else if (genero_string == "COMEDIA")
+        genero = COMEDIA;
+    else if (genero_string  == "FICCION")
+        genero = FICCION;
+    else if (genero_string  == "SUSPENSO")
+        genero = SUSPENSO;
+    else if (genero_string  == "TERROR")
+        genero = TERROR;
+    else if (genero_string  == "ROMANTICA")
+        genero = ROMANTICA;
+    else if (genero_string  == "HISTORICA")
+        genero = HISTORICA;
+    return genero;
+}
+
+void liberar_memoria(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> * lista_de_escritores){
+    for(int pos = 1; pos <= lista_de_lecturas->obtener_cantidad(); pos++){
+        delete lista_de_lecturas->consulta(pos);
+    }
+
+}
+
+
+int comparar(int anio_lectura_actual, Lista<Lectura*>* lista_de_lecturas){
+    int posicion_ordenada = 1;
+    if  (lista_de_lecturas->vacia())
+        posicion_ordenada = 1;
+    else{
+        for (int pos = 1 ; pos <= lista_de_lecturas->obtener_cantidad() ; pos++ ){
+            if (anio_lectura_actual < lista_de_lecturas->consulta(pos)->get_anio()){
+                posicion_ordenada = pos;
+                pos = lista_de_lecturas->obtener_cantidad(); //cortar for
+            }
+            else if (anio_lectura_actual >= lista_de_lecturas->consulta(pos)->get_anio())
+                posicion_ordenada = pos + 1;
+        }
+    }
+    return posicion_ordenada;
+}
+
+
+
+bool validar_entrada(int entrada,int parametro_minimo,int parametro_maximo){
+    bool continuar = true;
+    if (parametro_minimo > entrada || entrada > parametro_maximo || cin.fail()){
+        cout << "Entrada invalida, intentelo de nuevo" << endl;
+        cin.clear();
+        cin.sync();
+        continuar = false;
+        }
+    return continuar;
+}
+
+
+void leer_archivo_lecturas(Lista<Escritor> *lista_de_escritores, Lista<Lectura*>* lista_de_lecturas){
     ifstream lecturas;
-    string tipo_lectura;
-    string titulo;
-    string duracion_lectura;
-    string ano_publicacion;
-    string referencia_a_lectura; //dependiendo el tipo de lectura reprecentara algo diferente
-    string referencia_a_autor;
-    string vacio;
-    int pos = 1; // posicion*
+    lecturas.open("lecturas.txt");
+    string tipo_lectura, titulo, duracion_lectura, ano_publicacion, referencia_a_lectura, tema_novela_historica, referencia_a_escritor, vacio;
     while (!lecturas.eof()){
         getline(lecturas,tipo_lectura);
         getline(lecturas,titulo);
         getline(lecturas,duracion_lectura);
         getline(lecturas,ano_publicacion);
         getline(lecturas,referencia_a_lectura);
-        getline(lecturas,referencia_a_autor);
+        if (referencia_a_lectura == "HISTORICA"){
+            getline(lecturas,tema_novela_historica);
+        }
+        getline(lecturas,referencia_a_escritor);
         getline(lecturas,vacio);
+        char * tema_novela_historica_ch = &tema_novela_historica[0];
+//Buscar autor en lista de escritores
+        Escritor *  autor_de_lectura = new Escritor();
+        for (int pos = 1; pos <= lista_de_escritores->obtener_cantidad() ; pos++){
+            *autor_de_lectura = lista_de_escritores->consulta(pos);
+            if (referencia_a_escritor ==  autor_de_lectura->obtener_referencia()){
+                pos = lista_de_escritores->obtener_cantidad();
+            }
+        }
+//Crear lista_de_lecturas con sus subtipos de clase adentro
+        int posicion = comparar(stoi(ano_publicacion),lista_de_lecturas);
+        char tipo_lectura = tipo_lectura;
+        if (tipo_lectura == 'C'){
+            Cuento* Cu = new Cuento(tipo_lectura,titulo,stoi(duracion_lectura),stoi(ano_publicacion),autor_de_lectura,referencia_a_lectura);
+            lista_de_lecturas->alta(Cu,posicion);
+        }
+        else if(tipo_lectura == 'N'){
+            Generos genero = de_string_a_enumerado(referencia_a_lectura);
+            if (genero == HISTORICA){
+                Novela_historica* PNH = new Novela_historica(tipo_lectura,titulo,stoi(duracion_lectura),stoi(ano_publicacion),autor_de_lectura,genero,tema_novela_historica_ch);
+                lista_de_lecturas->alta(PNH,posicion);           
+            }
+            else{
+                Novela * PN = new Novela(tipo_lectura,titulo,stoi(duracion_lectura),stoi(ano_publicacion),autor_de_lectura,genero);
+                lista_de_lecturas->alta(PN,posicion);
+            }
+        }
+        else if(tipo_lectura == 'P'){
+            int cantidad_versos = stoi(referencia_a_lectura);
+            Poema * Po = new Poema(tipo_lectura,titulo,stoi(duracion_lectura),stoi(ano_publicacion),autor_de_lectura,cantidad_versos);
+            lista_de_lecturas->alta(Po,posicion);  
+        }   
     }
- //   return stoi(duracion_lectura);
+    lecturas.close();
 }
-*/
-/*void crear_lista_de_lecutras(char tipo_lectura,string titulo,int duracion_lectura,int ano_publicacion,string referencia_a_lectura,string referencia_a_autor, Lista<Escritor> *lista_de_escritores,Lista<Lectura> * lista_de_lecturas){
-    Escritor * puntero_escritor;
-    int pos = 1;
-    lista_de_escritores->obtener_cantidad();
-    for (pos ; pos <= lista_de_escritores->obtener_cantidad() ; pos++){
-        Escritor * aux = lista_de_escritores->consulta(pos);
-        if (referencia_a_lectura == aux->obtener_referencia())
-            puntero_escritor = aux;
+
+
+void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> *lista_de_escritores ){
+    string tipo_de_lectura;
+    string titulo;
+    int duracion_lectura; // en minutos
+    int ano_publicacion;
+    int referencia_autor;
+    Escritor * autor = new Escritor();
+    int posicion;
+    int referencia_tipo_lectura = 0;
+
+    cout << "Ingrese el tipo de lectura que desea agregar: " << endl;
+    cout << "1 - Cuento " << endl << "2 - Poema " << endl <<"3 - Novela"<< endl << "4 - Novela historica " << endl;
+    while (0 >= referencia_tipo_lectura || referencia_tipo_lectura > 4 ){
+        cin >> referencia_tipo_lectura;
+        validar_entrada(referencia_tipo_lectura,1,4);
     }
-    if (tipo_lectura == 'C'){
-        Cuento *ref = new Cuento(tipo_lectura,titulo,duracion_lectura,ano_publicacion,puntero_escritor,referencia_a_lectura);
-        lista_de_escritores->alta(ref,pos);
+    cout << "Ingrese el titulo de la lectura: " << endl;    
+    cin >> titulo;
+    cout << "Ingrese la duracion estimada de la lectura en minutos" << endl;  
+    cin >> duracion_lectura;
+    cout << "Ingrese el ano de su publicacion" << endl;      
+    cin >> ano_publicacion;
+    cout << "Ingrese la referencia al autor que pertenece la novela o digite 0 si es desconocido" << endl;
+
+
+    for (int i = 1;i <= lista_de_escritores->obtener_cantidad();i++){
+        cout << lista_de_escritores->consulta(i).obtener_referencia() << " " << lista_de_escritores->consulta(i).devolver_nombre() << endl;
     }
-}
-void crear_lista_lecturas(Lista<Lectura*> * lista_lecturas, Lista<Escritor*> * lista_escritores){
-    ifstream archivo;
-
-    archivo.open("lecturas.txt", ios::in);
-
-    if (archivo.fail()){
-      cout << "no se abrio \n" << endl;
+    while (0 >= referencia_autor || referencia_autor > lista_de_escritores->obtener_cantidad()){
+        cin >> referencia_autor;
+        validar_entrada(referencia_autor,1,lista_de_escritores->obtener_cantidad());
     }
+    *autor = lista_de_escritores->consulta(referencia_autor);
 
-    string tipo_de_objeto;
-    string titulo, quinto_dato, sexto_dato, ultimo_dato;
-    string tiempo_lectura;
-    string anio;
+    posicion = comparar(ano_publicacion,lista_de_lecturas);
 
-    while (!archivo.eof()){
-
-
-      getline(archivo, tipo_de_objeto);
-      char _tipo_de_objeto = tipo_de_objeto[0];
-      getline(archivo, titulo);
-      getline(archivo, tiempo_lectura);
-      getline(archivo, anio);
-      getline(archivo, quinto_dato); //quinto_dato va a tomar el valor
-                                      // de verso, libro o genero
-      getline(archivo, sexto_dato); //Este sexto dato tomara el valor de get_autor
-                                    //en el caso de no tener una novela historica
-                                    //toma el de Tema en caso de ser novela historica
-      getline(archivo, ultimo_dato);//Toma el de autor o un espacio el blanco;
-      if (ultimo_dato == "" ){
-        if ( sexto_dato == "ANONIMO"){
-          lista->alta(titulo, tiempo_lectura, anio , nullptr, _tipo_de_objeto, quinto_dato);
+    if (referencia_tipo_lectura == 1){
+        string cuento_libro_publicado;
+        tipo_de_lectura = 'C';
+        cout << "Ingrese el libro donde fue publicado el cuento" << endl;
+        cin >> cuento_libro_publicado;
+        Cuento * Nuevo_cuento = new Cuento(tipo_de_lectura,titulo,duracion_lectura,ano_publicacion,autor,cuento_libro_publicado);
+        lista_de_lecturas->alta(Nuevo_cuento,posicion);
+    }
+    else if (referencia_tipo_lectura == 2){
+        int cantidad_de_versos;
+        tipo_de_lectura = 'P';
+        cout << "Ingrese la cantidad de versos del poema" << endl;
+        cin >> cantidad_de_versos;
+        Poema * Nuevo_poema = new Poema(tipo_de_lectura,titulo,duracion_lectura,ano_publicacion,autor,cantidad_de_versos);
+        lista_de_lecturas->alta(Nuevo_poema,posicion);    
+    }
+    else{
+        string genero_string;
+        Generos genero;
+        tipo_de_lectura = "N";
+        cout << "Ingrese el genero de la novela" << endl;
+        cin >> genero_string;
+        genero = de_string_a_enumerado(genero_string);
+        if(genero == HISTORICA){
+            char * tema_novela_historica;
+            cout << "Describa en pocas palabras el tema de la novela historica" << endl;
+            cin >> tema_novela_historica;
+            Novela_historica * Nueva_NH = new Novela_historica(tipo_de_lectura,titulo,duracion_lectura,ano_publicacion,autor,genero,tema_novela_historica);
+            lista_de_lecturas->alta(Nueva_NH,posicion);
         }
         else{
-          Escritor * puntero_del_escritor; //Me va a guardar la direccion de memoria
-          puntero_del_escritor->consulta();//Me busca el objeto escritor
-          lista_lecturas->alta(); // FALTA EL OBJETO
+            Novela *Nueva_novela = new Novela(tipo_de_lectura,titulo,duracion_lectura,ano_publicacion,autor,genero);
+            lista_de_lecturas->alta(Nueva_novela,posicion);
         }
-      }
-      else {
-        int i = sexto_dato.size();
-        char tema_auxiliar[i];//lo uso para armar el char*
-        char* tema = tema_auxiliar;
-        for (int j = 0; j <= i ; j++){
-          tema_auxiliar[j] = sexto_dato[j];
-        }
-        Escritor * puntero_del_escritor;
-        puntero_del_escritor->consulta();
-        lista_lecturas->alta();
-
-        getline(archivo, titulo); //me pasa a la linea vacia
-      }
-
-
     }
-
-    archivo.close();
-  }
-*/
+    cout << endl << "Lectura agregada!" << endl << endl;
+}

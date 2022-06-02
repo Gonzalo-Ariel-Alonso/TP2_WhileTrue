@@ -1,0 +1,6 @@
+#ifndef GENERO_H
+#define GENERO_H
+
+enum Generos{DRAMA, COMEDIA, FICCION, SUSPENSO,TERROR, ROMANTICA, HISTORICA};
+
+#endif
