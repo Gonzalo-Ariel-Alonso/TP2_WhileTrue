@@ -31,3 +31,7 @@ int Lectura::get_tiempo_lectura(){
 int Lectura::get_anio(){
     return anio;
 }
+
+Lectura::~Lectura(){
+    delete autor;
+}

@@ -51,6 +51,8 @@ int main(){
             listar_lecturas(&lista_de_lecturas);
             break;
         case 12:
+            lista_de_lecturas.~Lista();
+            lista_de_escritores.~Lista();
             cout << "Adios!" << endl << endl;
             system("clear");
             break;
