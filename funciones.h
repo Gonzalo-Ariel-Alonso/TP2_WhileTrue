@@ -27,13 +27,14 @@ void listar_lecturas(Lista<Escritor> * lista_de_escritores);//falta
 
 void cambiar_dato_escritor(Lista<Escritor> * lista_de_escritores);//falta
 
-void validador_de_entradas_int(int entrada,int parametro_minimo,int parametro_maximo);
+bool validar_entrada(int entrada,int parametro_minimo,int parametro_maximo);
 
 void quitar_lectura(Lista<Lectura*>* lista_de_lecturas);
 
 int posicion_ordenada(int anio_lectura_actual, Lista<Lectura*>* lista_de_lecturas);
 
-
-
 void listar_lecturas(Lista<Lectura*>* lista_de_lecturas);
 
+void listar_lectura_filtrada_por_ano(Lista<Lectura*>* lista_de_lecturas);
+
+void listar_lecturas_filtrado_por_escritor(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> * lista_de_escritores);

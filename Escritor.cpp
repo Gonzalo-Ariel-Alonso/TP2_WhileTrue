@@ -41,3 +41,9 @@ string Escritor::devolver_nombre(){
 string Escritor::obtener_referencia(){
     return referencia;
 }
+
+bool Escritor::operator == (Escritor autor_aux){
+    if (referencia == autor_aux.obtener_referencia())
+        return true;
+    return false;
+}

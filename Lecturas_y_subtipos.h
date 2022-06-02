@@ -19,9 +19,10 @@ public:
     Lectura();//constructoir dcefault
     virtual void mostrar_datos() = 0;
     int get_anio_publicacion();
-    void mostar_filtrado_por_escritor(string esritor_a_filtrar);
+    void mostar_filtrado_por_escritor(Escritor referencia_a_escritor);
     string get_tipo_de_lectura();
     string get_titulo();
+    Escritor * get_autor();
 };
 
 

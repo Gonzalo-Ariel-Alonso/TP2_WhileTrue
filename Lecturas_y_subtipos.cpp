@@ -21,10 +21,9 @@ int Lectura::get_anio_publicacion(){
     return anio_publicacion;
 }
 
-void Lectura::mostar_filtrado_por_escritor(string esritor_a_filtrar){
-    if (esritor_a_filtrar == Lectura::autor->devolver_nombre()){
-//        mostrar_datos();
-    }
+void Lectura::mostar_filtrado_por_escritor(Escritor referencia_a_escritor){
+    if (referencia_a_escritor == *autor)
+        mostrar_datos();
 }
 
 string Lectura::get_tipo_de_lectura(){
@@ -33,6 +32,10 @@ string Lectura::get_tipo_de_lectura(){
 
 string Lectura::get_titulo(){
     return titulo;
+}
+
+Escritor * Lectura::get_autor(){
+    return autor;
 }
 
 //Implementacion poema

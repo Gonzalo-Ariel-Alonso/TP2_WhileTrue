@@ -48,13 +48,19 @@ int main(){
             cout << "--------LISTA DE LECUTRAS--------" << endl;
             listar_lecturas(&lista_de_lecturas);
             break;
+        case 8:
+            listar_lectura_filtrada_por_ano(&lista_de_lecturas);
+            break;
+        case 9:
+            listar_lecturas_filtrado_por_escritor(&lista_de_lecturas,&lista_de_escritores);
+            break;
         case 12:
             lista_de_lecturas.~Lista();
             lista_de_escritores.~Lista();
             cout << "Adios!" << endl << endl;
             break;
         default:
-            validador_de_entradas_int(selector,1,12);
+            validar_entrada(selector,1,12);
             break;
         }
     }
@@ -126,7 +132,7 @@ void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> *lista_d
     cout << "1 - Cuento " << endl << "2 - Poema " << endl <<"3 - Novela"<< endl << "4 - Novela historica " << endl;
     while (0 >= referencia_tipo_lectura || referencia_tipo_lectura > 4 ){
         cin >> referencia_tipo_lectura;
-        validador_de_entradas_int(referencia_tipo_lectura,1,4);
+        validar_entrada(referencia_tipo_lectura,1,4);
     }
     cout << "Ingrese el titulo de la lectura: " << endl;    
     cin >> titulo;
@@ -142,7 +148,7 @@ void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor> *lista_d
     }
     while (0 >= referencia_autor || referencia_autor > lista_de_escritores->obtener_cantidad()){
         cin >> referencia_autor;
-        validador_de_entradas_int(referencia_autor,1,lista_de_escritores->obtener_cantidad());
+        validar_entrada(referencia_autor,1,lista_de_escritores->obtener_cantidad());
     }
     *autor = lista_de_escritores->consulta(referencia_autor);
 
