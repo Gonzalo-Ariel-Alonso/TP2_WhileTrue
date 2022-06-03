@@ -58,8 +58,7 @@ Funciones_de_listas::~Funciones_de_listas(){
 
 void Funciones_de_listas::listar_escritores(){
     int cantidad_escritores = lista_de_escritores->obtener_cantidad();
-    int pos = 1;
-    for ( pos; pos <= cantidad_escritores; pos++){
+    for (int pos = 1; pos <= cantidad_escritores; pos++){
             Escritor * aux = lista_de_escritores->consulta(pos);
             aux->mostrar_datos();
             cout << endl;
@@ -68,8 +67,7 @@ void Funciones_de_listas::listar_escritores(){
 
 void Funciones_de_listas::listar_lecturas(){
     int cantidad_lecturas = lista_de_lecturas->obtener_cantidad();
-    int pos = 1;
-    for (pos; pos <= cantidad_lecturas; pos++){
+    for (int pos = 1; pos <= cantidad_lecturas; pos++){
         Lectura * _lectura;
         _lectura = lista_de_lecturas->consulta(pos);
         _lectura->mostrar();
@@ -375,7 +373,7 @@ void Funciones_de_listas::listar_lecturas_filtradas_por_genero(){
     int cantidad_de_generos = 7;
 
 
-    while ( referencia_genero_a_filtrar < 1  ||  referencia_genero_a_filtrar > 7 ){
+    while ( referencia_genero_a_filtrar < 1  ||  referencia_genero_a_filtrar > cantidad_de_generos){
         cout << "Ingrese la referencia del genero que desea filtrar: "<< endl;
         cout << "1 - DRAMA \n2 - COMEDIA\n3 - FICCION\n4 - SUSPENSO\n5 - TERROR\n6 - ROMANTICA\n7 - HISTORICA\n";
         cin >>  referencia_genero_a_filtrar;
