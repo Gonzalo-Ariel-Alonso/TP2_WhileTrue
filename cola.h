@@ -15,7 +15,7 @@ private:
 public:
     /*
     Constructor
-    PRE: -
+    PRE: dato tiene que ser de tipo puntero o dinamico;
     POS: construye una Cola vacia
     */
     Cola();

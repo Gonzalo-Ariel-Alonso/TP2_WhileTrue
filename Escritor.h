@@ -23,7 +23,6 @@ public:
     void mostrar_nombre_y_fallecimiento();
     string devolver_nombre();
     string obtener_referencia();
-    bool operator == (Escritor autor_aux);
 };
 
 

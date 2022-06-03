@@ -7,7 +7,7 @@ Escritor::Escritor(string _referencia,string _nombre_y_apellido,string _nacional
     nacionalidad = _nacionalidad;
     if (_anio_nacimiento == "" || _anio_nacimiento == "0")
         anio_nacimiento = "desconocido";
-    else     
+    else
         anio_nacimiento = _anio_nacimiento;
     if (_anio_fallecimiento == "" || _anio_nacimiento == "0")
         anio_fallecimiento = "desconocido";
@@ -27,7 +27,7 @@ void Escritor::mostrar_datos(){
     cout << "Nombre: " << nombre_y_apellido << endl;
     cout << "Nacionalidad: " << nacionalidad << endl;
     cout << "Ano de nacimiento: " << anio_nacimiento << endl;
-    cout << "Ano de fallecimiento: " << anio_fallecimiento << endl << endl;
+    cout << "Ano de fallecimiento: " << anio_fallecimiento << endl;
 }
 
 void Escritor::mostrar_nombre_y_fallecimiento(){
@@ -40,10 +40,4 @@ string Escritor::devolver_nombre(){
 
 string Escritor::obtener_referencia(){
     return referencia;
-}
-
-bool Escritor::operator == (Escritor autor_aux){
-    if (referencia == autor_aux.obtener_referencia())
-        return true;
-    return false;
 }
