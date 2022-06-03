@@ -39,3 +39,7 @@ void listar_lectura_filtrada_por_ano(Lista<Lectura*>* lista_de_lecturas);
 void listar_lecturas_filtrado_por_escritor(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor*> * lista_de_escritores);
 
 Generos de_string_a_enumerado(string genero_string);
+
+Escritor * escritor_de_nueva_lectura(Lista<Escritor*> * lista_de_escritores);
+
+void listar_lecturas_filtradas_por_genero(Lista<Lectura*> * lista_de_lecturas);

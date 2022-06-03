@@ -58,8 +58,7 @@ void crear_lista_escritores(Lista<Escritor*>*  lista_de_escritores){
 
 void listar_escritores(Lista<Escritor*> * lista_escritores){
     int cantidad_escritores = lista_escritores->obtener_cantidad();
-    int pos = 1;
-    for ( pos; pos <= cantidad_escritores; pos++){
+    for ( int pos = 1; pos <= cantidad_escritores; pos++){
             lista_escritores->consulta(pos)->mostrar_datos();
     }
 }
@@ -161,8 +160,7 @@ void quitar_lectura(Lista<Lectura*>* lista_de_lecturas){
 
 void listar_lecturas(Lista<Lectura*>* lista_de_lecturas){
     int cantidad_lecturas = lista_de_lecturas->obtener_cantidad();
-    int pos = 1;
-    for (pos; pos <= cantidad_lecturas; pos++){
+    for (int pos = 1 ; pos <= cantidad_lecturas; pos++){
         Lectura * _lectura;
         _lectura = lista_de_lecturas->consulta(pos);
         _lectura->mostrar_datos();
@@ -171,7 +169,7 @@ void listar_lecturas(Lista<Lectura*>* lista_de_lecturas){
 
 void listar_lectura_filtrada_por_ano(Lista<Lectura*>* lista_de_lecturas){
     int cantidad_lecturas = lista_de_lecturas->obtener_cantidad();
-    int pos = 1;
+
     int ano_inicial;
     int ano_final;
     bool una_lectura_filtrada = false;
@@ -187,12 +185,13 @@ void listar_lectura_filtrada_por_ano(Lista<Lectura*>* lista_de_lecturas){
         cin >> ano_final;
         continuar = validar_entrada(ano_final,ano_inicial,9999);
     }
-    for (pos; pos <= cantidad_lecturas; pos++){
+    for (int pos = 1 ; pos <= cantidad_lecturas ; pos++){
         Lectura * _lectura;
         _lectura = lista_de_lecturas->consulta(pos);
-        if(ano_inicial <= _lectura->get_anio_publicacion() && _lectura->get_anio_publicacion() < ano_final)
+        if(ano_inicial <= _lectura->get_anio_publicacion() && _lectura->get_anio_publicacion() < ano_final){
             _lectura->mostrar_datos();
             una_lectura_filtrada = true;
+        }
     }
     if (!una_lectura_filtrada){
         cout << "No hay ninguna lectura entre los anos filtrados" << endl;
@@ -238,9 +237,42 @@ Generos de_string_a_enumerado(string genero_string){
     return genero;
 }
 
-void liberar_memoria(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor*> * lista_de_escritores){
+/*void liberar_memoria(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor*> * lista_de_escritores){
     for(int pos = 1; pos <= lista_de_lecturas->obtener_cantidad(); pos++){
         delete lista_de_lecturas->consulta(pos);
+    }
+
+}*/
+
+Escritor * escritor_de_nueva_lectura(Lista<Escritor*> * lista_de_escritores){
+    int referencia_autor;
+    cout << "Ingrese la referencia al autor que pertenece la novela o digite 0 si es desconocido" << endl;
+    for (int pos = 1 ; pos <= lista_de_escritores->obtener_cantidad() ; pos++){
+        cout << lista_de_escritores->consulta(pos)->obtener_referencia() << " " << lista_de_escritores->consulta(pos)->devolver_nombre() << endl;
+    }
+    while (0 >= referencia_autor || referencia_autor > lista_de_escritores->obtener_cantidad()){
+        cin >> referencia_autor;
+        validar_entrada(referencia_autor,1,lista_de_escritores->obtener_cantidad());
+    }
+    return lista_de_escritores->consulta(referencia_autor);
+}
+
+void listar_lecturas_filtradas_por_genero(Lista<Lectura*> * lista_de_lecturas){
+    Generos genero_a_filtrar;
+    int referencia_genero_a_filtrar;
+    int cantidad_de_generos = 7;
+    bool continuar = false;
+    cout << "Ingrese la referencia del genero que desea filtrar: "<< endl;
+    while(!continuar){
+        cout << "1 - DRAMA \n2 - COMEDIA\n3 - FICCION\n4 - SUSPENSO\n5 - TERROR\n6 - ROMANTICA\n7 - HISTORICA\n";
+        cin >>  referencia_genero_a_filtrar;
+        continuar = validar_entrada(referencia_genero_a_filtrar,1,cantidad_de_generos);
+    }
+    genero_a_filtrar = static_cast<Generos>(referencia_genero_a_filtrar);
+
+    for(int pos = 1; pos <= lista_de_lecturas->obtener_cantidad() ; pos++){
+        lista_de_lecturas->consulta(pos)->mostrar_filtrado_por_genero(genero_a_filtrar);
+
     }
 
 }

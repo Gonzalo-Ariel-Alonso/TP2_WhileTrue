@@ -21,6 +21,9 @@ void Lectura::mostar_filtrado_por_escritor(Escritor referencia_a_escritor){
     if (referencia_a_escritor == *autor)
         mostrar_datos();
 }
+void Lectura::mostrar_filtrado_por_genero(Generos genero_a_filtrar){
+
+}
 
 string Lectura::get_tipo_de_lectura(){
     return tipo_de_lectura;
@@ -85,10 +88,11 @@ void Novela::mostrar_datos(){
     cout << "Genero: " << de_enumerado_a_string(genero) << endl << endl;  
 }
 
-void Novela::mostar_filtrado_por_genero(Generos genero_a_filtrar){
+void Novela::mostrar_filtrado_por_genero(Generos genero_a_filtrar){
     if (genero_a_filtrar == genero)
         mostrar_datos();
 }
+
 string Novela::de_enumerado_a_string(Generos genero){
     string genero_en_string;
     if (genero == DRAMA)
@@ -109,7 +113,7 @@ string Novela::de_enumerado_a_string(Generos genero){
 }
 
 //Implementacion novela historica
-Novela_historica::Novela_historica(string _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, Generos _genero,char * _descripcion) : Novela(_tipo_de_lectura,titulo,_duracion_lectura,_anio_publicacion,_autor,_genero){
+Novela_historica::Novela_historica(string _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, Generos _genero,char* _descripcion) : Novela(_tipo_de_lectura,titulo,_duracion_lectura,_anio_publicacion,_autor,_genero){
     descripcion = _descripcion;
 }
 
@@ -122,7 +126,7 @@ void Novela_historica::mostrar_datos(){
     cout << "Duracion aproximada en minutos: " << duracion_lectura << endl;
     cout << "Anio de publicacion: " << anio_publicacion << endl;
     cout << "Autor: " << autor->devolver_nombre() << endl; 
-    cout << "Genero: " << genero << endl;
+    cout << "Genero: " << de_enumerado_a_string(genero) << endl;
     cout << "Descripcion: " << descripcion << endl << endl;  
 
 }

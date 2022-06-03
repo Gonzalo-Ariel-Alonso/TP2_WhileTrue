@@ -46,6 +46,12 @@ int main(){
             listar_escritores(&lista_de_escritores);
             cout << endl;
             break;
+        case 6:
+            int numero_random;
+            numero_random = 1 + rand() % (lista_de_lecturas.obtener_cantidad() - 1 + 1);
+            cout << "Su lectura de la suerte es: " << endl;
+            lista_de_lecturas.consulta(numero_random)->mostrar_datos();
+            break;
         case 7:
             cout << "--------LISTA DE LECUTRAS--------" << endl;
             listar_lecturas(&lista_de_lecturas);
@@ -57,11 +63,9 @@ int main(){
             listar_lecturas_filtrado_por_escritor(&lista_de_lecturas,&lista_de_escritores);
             break;
         case 10:
-
+            listar_lecturas_filtradas_por_genero(&lista_de_lecturas);
             break;
         case 12:
-            lista_de_lecturas.~Lista();
-            lista_de_escritores.~Lista();
             cout << "Adios!" << endl << endl;
             break;
         default:
@@ -88,7 +92,6 @@ void leer_archivo_lecturas(Lista<Escritor*> *lista_de_escritores, Lista<Lectura*
         }
         getline(lecturas,referencia_a_escritor);
         getline(lecturas,vacio);
-        char * tema_novela_historica_ch = &tema_novela_historica[0];
 //Buscar autor en lista de escritores
         Escritor *  autor_de_lectura = new Escritor();
         for (int pos = 1; pos <= lista_de_escritores->obtener_cantidad() ; pos++){
@@ -106,6 +109,8 @@ void leer_archivo_lecturas(Lista<Escritor*> *lista_de_escritores, Lista<Lectura*
         else if(tipo_lectura == "N"){
             Generos genero = de_string_a_enumerado(referencia_a_lectura);
             if (genero == HISTORICA){
+                char * tema_novela_historica_ch;// = new char[10];
+                tema_novela_historica_ch = &tema_novela_historica[0];
                 Novela_historica* PNH = new Novela_historica(tipo_lectura,titulo,stoi(duracion_lectura),stoi(ano_publicacion),autor_de_lectura,genero,tema_novela_historica_ch);
                 lista_de_lecturas->alta(PNH,posicion);           
             }
@@ -129,7 +134,6 @@ void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor*> *lista_
     string titulo;
     int duracion_lectura; // en minutos
     int ano_publicacion;
-    int referencia_autor;
     Escritor * autor = new Escritor();
     int posicion;
     int referencia_tipo_lectura = 0;
@@ -146,18 +150,8 @@ void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor*> *lista_
     cin >> duracion_lectura;
     cout << "Ingrese el ano de su publicacion" << endl;      
     cin >> ano_publicacion;
-    cout << "Ingrese la referencia al autor que pertenece la novela o digite 0 si es desconocido" << endl;
-
-
-    for (int i = 1;i <= lista_de_escritores->obtener_cantidad();i++){
-        cout << lista_de_escritores->consulta(i)->obtener_referencia() << " " << lista_de_escritores->consulta(i)->devolver_nombre() << endl;
-    }
-    while (0 >= referencia_autor || referencia_autor > lista_de_escritores->obtener_cantidad()){
-        cin >> referencia_autor;
-        validar_entrada(referencia_autor,1,lista_de_escritores->obtener_cantidad());
-    }
-    autor = lista_de_escritores->consulta(referencia_autor);
-
+    
+    autor = escritor_de_nueva_lectura(lista_de_escritores);
     posicion = comparar(ano_publicacion,lista_de_lecturas);
 
     if (referencia_tipo_lectura == 1){
@@ -184,10 +178,10 @@ void agregar_lectura(Lista<Lectura*>* lista_de_lecturas,Lista<Escritor*> *lista_
         cin >> genero_string;
         genero = de_string_a_enumerado(genero_string);
         if(genero == HISTORICA){
-            char * tema_novela_historica;
+            char tema_novela_historica;
             cout << "Describa en pocas palabras el tema de la novela historica" << endl;
             cin >> tema_novela_historica;
-            Novela_historica * Nueva_NH = new Novela_historica(tipo_de_lectura,titulo,duracion_lectura,ano_publicacion,autor,genero,tema_novela_historica);
+            Novela_historica * Nueva_NH = new Novela_historica(tipo_de_lectura,titulo,duracion_lectura,ano_publicacion,autor,genero,&tema_novela_historica);
             lista_de_lecturas->alta(Nueva_NH,posicion);
         }
         else{

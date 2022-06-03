@@ -16,9 +16,10 @@ protected:
     Escritor * autor;
 public:
     Lectura(string _tipo_de_lectura,string _titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor);
-    ~Lectura();
+    virtual ~Lectura();
     Lectura();//constructoir dcefault
     virtual void mostrar_datos() = 0;
+    virtual void mostrar_filtrado_por_genero(Generos genero_a_filtrar);
     int get_anio_publicacion();
     void mostar_filtrado_por_escritor(Escritor referencia_a_escritor);
     string get_tipo_de_lectura();
@@ -51,9 +52,10 @@ protected:
     Generos genero;
 public:
     Novela(string _tipo_de_lectura,string titulo,int _duracion_lectura,int _anio_publicacion,Escritor * _autor, Generos _genero_novela);
+    Novela();
     ~Novela();
     void mostrar_datos();
-    void mostar_filtrado_por_genero(Generos genero_a_filtrar);
+    void mostrar_filtrado_por_genero(Generos genero_a_filtrar);
     string de_enumerado_a_string(Generos genero);
 };
 
