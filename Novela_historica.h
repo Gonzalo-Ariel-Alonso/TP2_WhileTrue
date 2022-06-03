@@ -8,11 +8,12 @@ using namespace std;
 
 class Novela_historica: public Novela {
 private:
+    int tamanio_char;
     char* tema;
 public:
-    Novela_historica(char tipo_de_objeto, string titulo, int tiempo_lectura, int anio , Escritor * autor , Generos genero, char* tema);
+    Novela_historica(char tipo_de_objeto, string titulo, int tiempo_lectura, int anio , Escritor * autor , Generos genero, string tema_string);
 
-    ~Novela_historica()=default;
+    ~Novela_historica();
     void mostrar()override;
 
 };

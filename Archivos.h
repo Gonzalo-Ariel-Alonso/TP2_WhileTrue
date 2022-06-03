@@ -149,7 +149,15 @@ void Archivos::crear_lista_lecturas(){
         }
         getline(lecturas,referencia_a_escritor);
         getline(lecturas,vacio);
-        char * tema_novela_historica_ch = &tema_novela_historica[0];
+/*
+        int i = tema_novela_historica.size();
+        char tema_auxiliar[i];
+        char* tema_novela_historica_ch = tema_auxiliar;
+        for (int j = 0; j <= i ; j++){
+          tema_auxiliar[j] = tema_novela_historica[j];
+        }*/
+
+
 //Buscar autor en lista de escritores
         Escritor *  autor_de_lectura = escritor_por_referencia (referencia_a_escritor);
 //Crear lista_de_lecturas con sus subtipos de clase adentro
@@ -164,7 +172,7 @@ void Archivos::crear_lista_lecturas(){
         else if(tipo_lectura == 'N'){
             Generos genero = de_string_a_enumerado(referencia_a_lectura);
             if (genero == HISTORICA){
-                Novela_historica* nueva_novela_historica = new Novela_historica(tipo_lectura,titulo,stoi(duracion_lectura),stoi(ano_publicacion),autor_de_lectura,genero,tema_novela_historica_ch);
+                Novela_historica* nueva_novela_historica = new Novela_historica(tipo_lectura,titulo,stoi(duracion_lectura),stoi(ano_publicacion),autor_de_lectura,genero,tema_novela_historica);
                 lista_de_lecturas->alta(nueva_novela_historica , posicion);
             }
             else{

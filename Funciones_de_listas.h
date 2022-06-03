@@ -131,11 +131,12 @@ void Funciones_de_listas::catalogo_escritores(){
 }
 
 Escritor* Funciones_de_listas::ingreso_autor(){
-  int referencia_autor;
+  int referencia_autor ;
   Escritor* escritor_ingresado;
-  cout << "Ingrese la referencia al autor que pertenece la novela o digite 0 si es desconocido" << endl;
+  cout << "Ingrese la referencia al autor que pertenece la novela o digite 0 si es desconocido." << endl;
   catalogo_escritores();
-  if (referencia_autor = 0){
+  cin >> referencia_autor;
+  if (referencia_autor == 0){
     int opcion;
     cout << "1- Dejarlo desconocido" << endl;
     cout << "2- Agregar el escritor" << endl;
@@ -154,9 +155,11 @@ Escritor* Funciones_de_listas::ingreso_autor(){
     }
   }
   else{
-    catalogo_escritores();
+    system("clear");
     while (0 > referencia_autor || referencia_autor > lista_de_escritores->obtener_cantidad()){
+        catalogo_escritores();
         cin >> referencia_autor;
+        system("clear");
     }
     escritor_ingresado = lista_de_escritores->consulta(referencia_autor);
   }
