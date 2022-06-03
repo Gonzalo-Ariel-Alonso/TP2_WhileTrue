@@ -17,7 +17,7 @@ protected:
     bool leido;
 public:
     Lectura ( char tipo_de_objeto, string titulo, int tiempo_lectura, int anio, Escritor * autor );
-    ~Lectura();
+    virtual ~Lectura();
     virtual void mostrar () = 0;
     bool get_leido ();
     void set_leido ( bool leido );

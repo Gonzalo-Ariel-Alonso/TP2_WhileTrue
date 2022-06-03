@@ -242,10 +242,10 @@ void Funciones_de_listas::agregar_lectura(){
     cin >> genero_string;
     genero = de_string_a_enumerado(genero_string);
     if(genero == HISTORICA){
-        char tema_novela_historica;
+        string tema_novela_historica;
         cout << "Describa en pocas palabras el tema de la novela historica" << endl;
         cin >> tema_novela_historica;
-        Novela_historica * Nueva_NH = new Novela_historica('N',titulo,duracion_lectura,ano_publicacion,autor,genero,&tema_novela_historica);
+        Novela_historica * Nueva_NH = new Novela_historica('N',titulo,duracion_lectura,ano_publicacion,autor,genero,tema_novela_historica);
         lista_de_lecturas->alta(Nueva_NH,posicion);
     }
     else{

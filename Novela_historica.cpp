@@ -9,10 +9,11 @@ Novela_historica::Novela_historica(char tipo_de_objeto, string titulo, int tiemp
   for (int j = 0; j < tamanio_char ; j++){
     tema[j] = tema_string[j];
   }
+
 }
 
 Novela_historica::~Novela_historica(){
-  delete tema;
+  delete[] tema;
 }
 
 
