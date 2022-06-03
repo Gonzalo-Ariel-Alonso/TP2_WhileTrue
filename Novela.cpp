@@ -34,3 +34,8 @@ string Novela::de_enumerado_a_string(Generos genero){
         genero_en_string = "HISTORICA";
     return genero_en_string;
 }
+
+void Novela::mostrar_filtrado_por_genero(Generos genero_a_filtrar){
+    if (genero_a_filtrar == genero)
+        mostrar();
+}

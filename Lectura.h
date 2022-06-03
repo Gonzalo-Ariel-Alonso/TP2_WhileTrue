@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include "Escritor.h"
+#include "Genero.h"
 using namespace std;
 
 class Lectura {
@@ -24,6 +25,8 @@ public:
     string get_titulo();
     int get_tiempo_lectura();
     int get_anio();
+    void mostar_filtrado_por_escritor(Escritor * referencia_a_escritor);
+    virtual void mostrar_filtrado_por_genero(Generos genero_a_filtrar);
     //Escritor* get_autor();
 
 

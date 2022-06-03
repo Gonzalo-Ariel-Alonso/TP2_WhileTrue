@@ -54,31 +54,32 @@ void Menu::opciones_interfaz(int opcion){
       funciones->agregar_lectura();
       break;
     case 2:
-
+      funciones->quitar_lectura();
       break;
     case 3:
       funciones->agregar_escritor();
       break;
     case 4:
-
+      funciones->modificar_ano_fallecimiento_escritor();
       break;
     case 5:
       funciones->listar_escritores();
       cout << endl;
       break;
     case 6:
-
+      funciones->sortear_lectura();
       break;
     case 7:
       funciones->listar_lecturas();
       break;
     case 8:
-
+      funciones->listar_lectura_filtrada_por_ano();
       break;
     case 9:
-
+      funciones->listar_lecturas_filtrado_por_escritor();
       break;
     case 10:
+      funciones->listar_lecturas_filtradas_por_genero();
 
       break;
     case 11://COLA

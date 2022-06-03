@@ -8,7 +8,7 @@ using namespace std;
 class Escritor
 {
 private:
-    string referencia;
+    string referencia; // (numero)
     string nombre_y_apellido;
     string nacionalidad;
     string anio_nacimiento;

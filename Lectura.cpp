@@ -32,6 +32,17 @@ int Lectura::get_anio(){
     return anio;
 }
 
+void Lectura::mostar_filtrado_por_escritor(Escritor * referencia_a_escritor){
+    if (referencia_a_escritor == autor){
+      mostrar();
+      cout << endl;
+    }
+}
+
+void Lectura::mostrar_filtrado_por_genero(Generos genero_a_filtrar){
+
+}
+
 Lectura::~Lectura(){
     autor = 0;
 }

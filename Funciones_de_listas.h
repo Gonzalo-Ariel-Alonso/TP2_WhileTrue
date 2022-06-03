@@ -28,6 +28,12 @@ public:
   void listar_escritores();//7
   void agregar_escritor();//3
   void agregar_lectura();//1
+  void quitar_lectura();//2
+  void modificar_ano_fallecimiento_escritor();//4
+  void sortear_lectura();//6
+  void listar_lectura_filtrada_por_ano();//8
+  void listar_lecturas_filtrado_por_escritor();//9
+  void listar_lecturas_filtradas_por_genero();//10
 
 private:
   void ingresos_usuario(string* ref_lectura, string* titulo, int* duracion, int* ano );
@@ -35,6 +41,8 @@ private:
   Escritor* ingreso_autor();
   int comparar(int anio_lectura_actual);
   Generos de_string_a_enumerado(string genero_string);
+  void catalogo_lecturas();
+  void mostrar_nombre_y_fallecimiento_escritor();
 
 };
 
@@ -124,7 +132,8 @@ void Funciones_de_listas::ingresos_usuario(string* ref_lectura, string* titulo, 
 
 }
 void Funciones_de_listas::catalogo_escritores(){
-  for (int pos = 1 ; pos <= lista_de_escritores->obtener_cantidad() ; pos++){
+  int longitud_lista =lista_de_escritores->obtener_cantidad();
+  for (int pos = 1 ; pos <= longitud_lista ; pos++){
       cout << lista_de_escritores->consulta(pos)->obtener_referencia() << " " << lista_de_escritores->consulta(pos)->devolver_nombre() << endl;
   }
 
@@ -253,12 +262,131 @@ void Funciones_de_listas::agregar_lectura(){
         lista_de_lecturas->alta(Nueva_novela,posicion);
     }
 
-
   }
+}
 
+void Funciones_de_listas::catalogo_lecturas(){
+  int longitud_lista = lista_de_lecturas->obtener_cantidad();
+  for (int pos = 1; pos <= longitud_lista  ; pos++){
+      cout << pos << " - " << lista_de_lecturas->consulta(pos)->get_titulo() << endl;
+  }
+}
+
+void Funciones_de_listas::quitar_lectura(){
+    int pos;
+    catalogo_lecturas();
+    cout << "Digite el numero de referencia de la lectura que desea eliminar" << endl;
+    while (1 > pos || pos > lista_de_lecturas->obtener_cantidad()){
+        cin >> pos;
+    }
+    lista_de_lecturas->baja(pos);
+    cout << "Lectura eliminada con exito" << endl << endl;
 }
 
 
 
+void Funciones_de_listas::mostrar_nombre_y_fallecimiento_escritor(){
+    int cantidad_escritores = lista_de_escritores->obtener_cantidad();
+    for (int pos = 1 ; pos <= cantidad_escritores; pos++){
+        cout << pos << " - ";
+        lista_de_escritores->consulta(pos)->mostrar_nombre_y_fallecimiento();
+    }
+}
+
+void Funciones_de_listas::modificar_ano_fallecimiento_escritor(){
+    int pos_escritor;
+    string fecha_fallecimiento_nueva;
+    int cantidad_escritores = lista_de_escritores->obtener_cantidad();
+    mostrar_nombre_y_fallecimiento_escritor();
+    cout << "Digite el numero del escritor que desea cambiarle la fecha de fallecimiento o precione 0 para volver al menu" << endl;
+    cin >> pos_escritor;
+    if(pos_escritor <= cantidad_escritores && pos_escritor != 0){
+        cout << "Digite fecha de fallecimiento del escritor" << endl;
+        cin >> fecha_fallecimiento_nueva;
+        Escritor * aux = lista_de_escritores->consulta(pos_escritor);
+        aux->modificar_anio_fallecimiento(fecha_fallecimiento_nueva);
+        system("clear");
+        cout << "Fecha de fallecimiento modificada con exito"<< endl;
+    }
+    else if (pos_escritor > cantidad_escritores && pos_escritor != 0 ){
+        system("clear");
+        cout << "Escritor inexistente" << endl;
+    }
+}
+
+void Funciones_de_listas::sortear_lectura(){
+  int numero_random;
+  numero_random = 1 + rand() % (lista_de_lecturas->obtener_cantidad() - 1 + 1);
+  cout << "Su lectura de la suerte es: " << endl;
+  lista_de_lecturas->consulta(numero_random)->mostrar();
+}
+
+
+void Funciones_de_listas::listar_lectura_filtrada_por_ano(){
+    int cantidad_lecturas = lista_de_lecturas->obtener_cantidad();
+
+    int ano_inicial, ano_final;
+
+    cout << "Ingrece el ano inicial para filtrar" << endl;
+    cin >> ano_inicial;
+    ano_final = ano_inicial -1;
+    while (ano_final < ano_inicial){
+      cout << "Ingrese el ano final" << endl;
+      cin >> ano_final;
+    }
+    bool una_lectura_filtrada = false;
+    for (int pos = 1 ; pos <= cantidad_lecturas ; pos++){
+        Lectura * _lectura;
+        _lectura = lista_de_lecturas->consulta(pos);
+        if(ano_inicial <= _lectura->get_anio() && _lectura->get_anio() <= ano_final){
+            _lectura->mostrar();
+            cout << endl;
+            una_lectura_filtrada = true;
+        }
+    }
+    if (!una_lectura_filtrada){
+        cout << "No hay ninguna lectura entre los anos filtrados" << endl;
+    }
+
+}
+
+void Funciones_de_listas::listar_lecturas_filtrado_por_escritor(){
+    int referencia_escritor = 0; //para que entre al while
+
+    Escritor* aux;
+    cout << "Digite el parametro del escritor del cual quiere ver sus lecturas: " << endl;
+    catalogo_escritores();
+
+    int cantidad_escritores = lista_de_escritores->obtener_cantidad();
+    while ( referencia_escritor < 1  ||  referencia_escritor > cantidad_escritores ){
+        cin >> referencia_escritor;
+    }
+    aux = lista_de_escritores->consulta(referencia_escritor);
+    int cantidad_lecturas = lista_de_lecturas->obtener_cantidad();
+    for (int pos = 1; pos <= cantidad_lecturas; pos++){
+        lista_de_lecturas->consulta(pos)->mostar_filtrado_por_escritor(aux);
+    }
+}
+
+
+void Funciones_de_listas::listar_lecturas_filtradas_por_genero(){
+    Generos genero_a_filtrar;
+    int referencia_genero_a_filtrar = 0;
+    int cantidad_de_generos = 7;
+
+
+    while ( referencia_genero_a_filtrar < 1  ||  referencia_genero_a_filtrar > 7 ){
+        cout << "Ingrese la referencia del genero que desea filtrar: "<< endl;
+        cout << "1 - DRAMA \n2 - COMEDIA\n3 - FICCION\n4 - SUSPENSO\n5 - TERROR\n6 - ROMANTICA\n7 - HISTORICA\n";
+        cin >>  referencia_genero_a_filtrar;
+    }
+    genero_a_filtrar = static_cast<Generos>(referencia_genero_a_filtrar);
+    int cantidad_lecturas = lista_de_lecturas->obtener_cantidad();
+    for(int pos = 1; pos <= cantidad_lecturas ; pos++){
+        lista_de_lecturas->consulta(pos)->mostrar_filtrado_por_genero(genero_a_filtrar);
+
+    }
+
+}
 
 #endif //FUNCIONES_DE_LISTAS_H
