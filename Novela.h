@@ -19,7 +19,7 @@ public:
     ~Novela()=default;
     virtual void mostrar();
     string de_enumerado_a_string(Generos genero);
-    virtual void mostrar_filtrado_por_genero(Generos genero_a_filtrar);
+    void mostrar_filtrado_por_genero(Generos genero_a_filtrar);
 };
 
 
