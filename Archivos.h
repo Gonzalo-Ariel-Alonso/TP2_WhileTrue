@@ -26,6 +26,7 @@ public:
   ~Archivos();
   void crear_lista_escritores();
   void crear_lista_lecturas();
+private:
   Escritor* escritor_por_referencia(string referencia);
   int comparar(int anio_lectura_actual);
   Generos de_string_a_enumerado(string genero_string);
