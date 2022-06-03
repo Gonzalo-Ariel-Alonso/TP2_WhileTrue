@@ -26,7 +26,11 @@ private:
 public:
   Menu(string archivo_escritor_a_escritores, string archivo_lecturas);
   ~Menu();
+  void mostrar_menu();
   void opciones_interfaz(int opcion);
+  int ingresar_opciones_interfaz();
+  bool validar_entrada(int entrada,int parametro_minimo,int parametro_maximo);
+  void interfaz_usuario_con_ingreso();
   /*
   agregar_nueva_lectura();
   quitar_lectura();
@@ -90,7 +94,58 @@ void Menu::opciones_interfaz(int opcion){
     case 12:
 
       break;
+
+    default:
+      cout << "Opcion en invalida. Intentelo de nuevo" << endl << endl;
+      validar_entrada(opcion,1,12);
+      break;
   }
+}
+
+
+
+void Menu::mostrar_menu(){
+    cout << "Bienvenido! Elija una opcion: " << endl;
+    cout << "1 - Agregar una nueva lectura a la lista" << endl;
+    cout << "2 - Quitar una lectura de la lista" << endl;
+    cout << "3 - Agregar un escritor" << endl;
+    cout << "4 - Cambiar dato de un escritor (solo fecha de fallecimiento)" << endl;
+    cout << "5 - Listar los escritores" << endl;
+    cout << "6 - Sortear una lectura random para leer en una de las tertulias" << endl;
+    cout << "7 - Listar todas las lecturas" << endl;
+    cout << "8 - Listar las lecturas entre determinados años. " << endl;
+    cout << "9 - Listar las lecturas de un determinado escritor que ingresa el usuario." << endl;
+    cout << "10 - Listar las novelas de determinado género." << endl;
+    cout << "11 - Armar una cola" << endl;
+    cout << "12 - Salir" << endl;
+}
+
+int Menu::ingresar_opciones_interfaz(){
+  int opcion = 15;
+  cin >> opcion ;
+  return opcion;
+}
+
+bool Menu::validar_entrada(int entrada,int parametro_minimo,int parametro_maximo){
+    bool continuar = true;
+    if (parametro_minimo > entrada || entrada > parametro_maximo || cin.fail()){
+        cout << "Entrada invalida, intentelo de nuevo" << endl;
+        cin.clear();
+        cin.sync();
+        continuar = false;
+        }
+    return continuar;
+}
+
+
+void Menu::interfaz_usuario_con_ingreso(){
+  int selector;
+  while (selector != 12){
+    mostrar_menu();
+    selector = ingresar_opciones_interfaz();
+    opciones_interfaz(selector);
+  }
+
 }
 
 void Menu::listar_escritores(){
@@ -113,7 +168,6 @@ void Menu::listar_lecturas(){
         cout << endl;
     }
 }
-
 
 
 

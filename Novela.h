@@ -18,6 +18,7 @@ public:
     Novela(char tipo_de_objeto, string titulo, int tiempo_lectura, int anio , Escritor * autor , Generos genero);
     ~Novela()=default;
     virtual void mostrar();
+    string de_enumerado_a_string(Generos genero);
 };
 
 
