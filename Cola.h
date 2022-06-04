@@ -10,7 +10,7 @@ class Cola {
 private:
     Nodo<Dato>* primero;
     Nodo<Dato>* ultimo;
-
+    int tam ;
     // Metodos
 public:
     /*
@@ -49,6 +49,8 @@ public:
     */
     bool vacia();
 
+    void cola_sort();
+
     // Destructor
     ~Cola();
 };
@@ -59,6 +61,7 @@ template <typename Dato>
 Cola<Dato>::Cola() {
     primero = 0;
     ultimo = 0;
+    tam = 0;
 }
 
 // alta
@@ -70,6 +73,7 @@ void Cola<Dato>::alta(Dato e) {
     else
         primero = nuevo;
     ultimo = nuevo;
+    tam ++;
 }
 
 
@@ -80,7 +84,10 @@ void Cola<Dato>::baja() {
     primero = primero->obtener_siguiente();
     if (! primero)
         ultimo = 0;
+    borrar->cambiar_dato(0); // Cambia el puntero a null asi no se borra con
+                            // el delete en el destructor en la lista tambien
     delete borrar;
+    tam --;
 }
 
 // consulta
@@ -96,6 +103,49 @@ bool Cola<Dato>::vacia() {
     return (ultimo == 0);
 }
 
+
+template <typename Dato>
+void Cola<Dato>::cola_sort(){
+  Nodo<Dato> * pAct = primero; //puntero Actual
+  while(pAct != NULL){
+      Nodo<Dato> * pSig = pAct->obtener_siguiente(); //puntero siguiente
+      while(pSig != NULL){
+          Dato datoAct = pAct->obtener_dato();
+          Dato datoSig = pSig->obtener_dato();
+          if (datoAct->get_tiempo_lectura() > datoSig->get_tiempo_lectura()){
+              pSig->cambiar_dato(datoAct);
+              pAct->cambiar_dato(datoSig);
+          }
+          pSig = pSig->obtener_siguiente();
+      }
+      pAct = pAct->obtener_siguiente();
+  }
+
+}
+
+
+/*
+template < typename Dato >
+void Lista<Dato>::lista_sort(){
+
+    Nodo<Dato> * pAct = primero; //puntero Actual
+
+    while(pAct != NULL){
+        Nodo<Dato> * pSig = pAct->get_siguiente(); //puntero siguiente
+        while(pSig != NULL){
+            Dato * datoAct = pAct->get_dato();
+            Dato * datoSig = pSig->get_dato();
+            if (datoAct->get_costo() > datoSig->get_costo()){
+                pSig->set_dato(datoAct);
+                pAct->set_dato(datoSig);
+            }
+            pSig = pSig->get_siguiente();
+        }
+        pAct = pAct->get_siguiente();
+    }
+
+}
+*/
 
 //Destructor
 template <typename Dato>

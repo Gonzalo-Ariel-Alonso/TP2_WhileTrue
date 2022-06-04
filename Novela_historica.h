@@ -8,7 +8,7 @@ using namespace std;
 
 class Novela_historica: public Novela {
 private:
-    int tamanio_char;
+    long unsigned int tamanio_char;
     char* tema;
 public:
     Novela_historica(char tipo_de_objeto, string titulo, int tiempo_lectura, int anio , Escritor * autor , Generos genero, string tema_string);
