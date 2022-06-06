@@ -49,6 +49,9 @@ public:
     */
     bool vacia();
 
+
+    //PRE: Cola cargada
+    //POST: Ordena la cola
     void cola_sort();
 
     // Destructor
@@ -124,28 +127,6 @@ void Cola<Dato>::cola_sort(){
 }
 
 
-/*
-template < typename Dato >
-void Lista<Dato>::lista_sort(){
-
-    Nodo<Dato> * pAct = primero; //puntero Actual
-
-    while(pAct != NULL){
-        Nodo<Dato> * pSig = pAct->get_siguiente(); //puntero siguiente
-        while(pSig != NULL){
-            Dato * datoAct = pAct->get_dato();
-            Dato * datoSig = pSig->get_dato();
-            if (datoAct->get_costo() > datoSig->get_costo()){
-                pSig->set_dato(datoAct);
-                pAct->set_dato(datoSig);
-            }
-            pSig = pSig->get_siguiente();
-        }
-        pAct = pAct->get_siguiente();
-    }
-
-}
-*/
 
 //Destructor
 template <typename Dato>

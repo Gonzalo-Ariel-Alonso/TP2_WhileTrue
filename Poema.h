@@ -10,8 +10,14 @@ class Poema: public Lectura {
 private:
     int versos;
 public:
+
+  //PRE: Recibe por parametro los datos a almacenar
+  //POST: Almacena los datos recibidos
     Poema (char tipo_de_objeto, string titulo, int tiempo_lectura, int anio , Escritor * autor , int versos);
     ~Poema()=default;
+
+    //PRE:
+    //POST: Imprime por pantalla los datos
     void mostrar()override;
 };
 
