@@ -89,6 +89,7 @@ void Cola<Dato>::baja() {
         ultimo = 0;
     borrar->cambiar_dato(0); // Cambia el puntero a null asi no se borra con
                             // el delete en el destructor en la lista tambien
+
     delete borrar;
     tam --;
 }

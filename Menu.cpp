@@ -45,6 +45,11 @@ void Menu::opciones_interfaz(int opcion){
       funciones->listar_lecturas_filtradas_por_genero();
       break;
     case 11://COLA
+/*
+      if (cola_ordenada.vacia()){
+        cargar_cola_ordenada();
+      }
+      */
       cargar_cola_ordenada();
       leer_una_lectura_cola();
       break;
@@ -127,13 +132,23 @@ void Menu::leer_una_lectura_cola(){
       cin >> opcion;
   }
   if (opcion == "S"){
-    Lectura * lectura_leer = cola_ordenada.consulta();
-    cout << "La lectura mas corta a leer es:" << endl;
-    lectura_leer->mostrar();
-    lectura_leer->set_leido(true);
-    cola_ordenada.baja();
-    cout << endl;
-    cout << endl;
+    if (!cola_ordenada.vacia()){
+      Lectura * lectura_leer = cola_ordenada.consulta();
+      cout << "La lectura mas corta a leer es:" << endl;
+      lectura_leer->mostrar();
+      lectura_leer->set_leido(true);
+      cola_ordenada.baja();
+      cout << endl;
+      cout << endl;
+    }
+    else{
+      cout << "Ya te leiste todos ..." << endl;
+    }
   }
-
+  //la borro asi la armo de nuevo despues, ya que si entre medio se pide un sorteo,
+  //la lectura estaria leia y seguiria en la cola_sort
+  //crearla de nuevo es mejor que sacar un elemento de la cola que de forma aleatoria
+  while(!cola_ordenada.vacia()){
+    cola_ordenada.baja();
+  }
 }
